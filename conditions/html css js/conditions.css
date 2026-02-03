@@ -1,0 +1,11 @@
+.terms-hero { display:flex; justify-content: center; align-items: center; flex-direction: column; }
+.terms-hero h1 { color:#a855f7; font-size:2rem; margin-bottom:0.5rem }
+.terms-hero p { color:#d1d5db }
+
+.terms-main { max-width:950px; margin:1.5rem auto; padding:0 5% }
+.terms-section { background:rgba(30,41,59,0.6); border:1px solid rgba(168,85,247,0.06); border-radius:10px; padding:1.25rem; margin-bottom:1rem }
+.terms-section h2 { color:#c4b5fd; font-size:1.05rem; margin-bottom:0.5rem }
+.terms-section p, .terms-section li { color:#d1d5db; font-size:0.95rem; line-height:1.6 }
+.terms-section ul { margin-left:1rem; margin-top:0.5rem }
+
+.last-updated { color:#9ca3af; font-size:0.9rem; text-align:center; margin-bottom:1rem }

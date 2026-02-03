@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Media — {{name.title()}}</title>
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{url_for('media.static',filename='media.css')}}">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+    <div class="logo">{{ name }}</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('home.index') }}">Home</a></li>
+        <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+        <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+        <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+        <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+        <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+        <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+        <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+    </ul>
+
+    <div class="h-menu" id="hamburger" aria-label="Toggle menu">
+        <span class="fa fa-bars"></span>
+    </div>
+</nav>
+
+    <header class="media-hero">
+        <h1>Music & Media</h1>
+        <p class="media-intro">Stream, purchase, and download Xarya's latest releases across all platforms.</p>
+    </header>
+
+    <main class="media-main">
+        <!-- Streaming Services -->
+        <section>
+        
+
+            <h2 class="section-header"><span><img src="{{url_for('media.static', filename='img/icons8-streaming-50.png')}}" alt="streaming icon" class="s-icon"> </span> 
+            <span> Streaming Everywhere</span></h2>
+                <div class="streaming-section">
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-spotify-48.png')}}"alt="spotify icon">
+                    </div>
+                    <div class="streaming-title">Spotify</div>
+                    <p class="streaming-desc">Listen on the world's largest music platform.</p>
+                    <a href="{{ streaming.get('spotify','https://open.spotify.com/') }}" class="streaming-btn" target="_blank">Open Spotify</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-soundcloud-48.png')}}"alt="soundcloud icon">
+                    </div>
+                    <div class="streaming-title">SoundCloud</div>
+                    <p class="streaming-desc">Discover behind-the-scenes tracks and demos.</p>
+                    <a href="{{ streaming.get('soundcloud','https://soundcloud.com/') }}" class="streaming-btn" target="_blank">Visit SoundCloud</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-youtube-music-48.png')}}"alt="youtube music icon">
+                    </div>
+                    <div class="streaming-title">YouTube Music</div>
+                    <p class="streaming-desc">Watch music videos and listen to the catalogue.</p>
+                    <a href="{{ streaming.get('youtubemusic','https://music.youtube.com/') }}" class="streaming-btn" target="_blank">Open YouTube Music</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-apple-music-48.png')}}"alt="Apple Music icon">
+                    </div>
+                    <div class="streaming-title">Apple Music</div>
+                    <p class="streaming-desc">Stream with lossless audio quality.</p>
+                    <a href="{{ streaming.get('applemusic','https://www.apple.com/apple-music/') }}" class="streaming-btn" target="_blank">Open Apple Music</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-audiomack-48.png')}}"alt="AudioMack icon">
+                    </div>
+                    <div class="streaming-title">AudioMack</div>
+                    <p class="streaming-desc">Access exclusive independent artist content.</p>
+                    <a href="{{ streaming.get('audiomack','https://www.audiomack.com/') }}" class="streaming-btn" target="_blank">Visit AudioMack</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-bandcamp-30.png')}}"alt="Bandcamp icon">
+                    </div>
+                    <div class="streaming-title">Bandcamp</div>
+                    <p class="streaming-desc">Direct support: stream and purchase.</p>
+                    <a href="{{ streaming.get('bandcamp','https://bandcamp.com/') }}" class="streaming-btn" target="_blank">Visit Bandcamp</a>
+                </div>
+
+                <div class="streaming-card">
+                    <div class="streaming-icon">
+                        <img src="{{url_for('media.static', filename='img/icons8-amazon-music-48.png')}}"alt="Bandcamp icon">
+                    </div>
+                    <div class="streaming-title">Bandcamp</div>
+                    <p class="streaming-desc">Direct support: stream and purchase.</p>
+                    <a href="{{ streaming.get('amazon','https://music.amazon.com/') }}" class="streaming-btn" target="_blank">Visit Bandcamp</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Playlist -->
+        <section class="featured-playlist">
+            <h3>Featured Playlist: Greatest Hits</h3>
+            <p>A curated collection of fan-favorite tracks spanning five years.</p>
+            <div class="playlist-embed">
+                {% if featured_playlist %}
+                <iframe style="border-radius:12px" src="{{ featured_playlist }}" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                {% else %}
+                <p style="color:#cbd5e1">No featured playlist set. Set one in the admin.</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Filter & Catalog -->
+        <section>
+            <h2 class="section-header"><span>
+                <img src="{{ url_for('media.static', filename='img/icons8-in-inventory-50.png') }}" alt="catelog icon" class="s-icon">
+            </span> Complete Catalogue</h2>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Releases</button>
+                <button class="filter-btn" data-filter="latest">Latest</button>
+                <button class="filter-btn" data-filter="singles">Singles</button>
+                <button class="filter-btn" data-filter="eps">EPs</button>
+                <button class="filter-btn" data-filter="albums">Albums</button>
+            </div>
+
+            <div class="music-grid" id="musicGrid">
+
+                <!-- Albums -->
+                {% for album in albums%}
+                    <div class="music-card" data-type="albums">
+                        <div class="album-cover">
+                            <img src="{{url_for('media.static', filename='img/icons8-disc-60.png')}}"alt="disc icon">
+                        </div>
+                        <div class="card-content">
+                            <div class="music-title">Album: {{album.title}}</div>
+                            <div class="music-artist">Artist: {{album.artist_name}}</div>
+                            <div class="music-type">Released date: {{album.released_date}}</div>
+                            <div class="card-actions">
+                                <a href="{{album.link}}" class="action-link" target="_blank">Stream</a>
+                                {% if album.buy_link %}
+                                    <a href="{{album.buy_link}}" class="action-link secondary" target="_blank">Buy</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!-- latest singles -->
+                {% if latest %}
+               
+                <div class="music-card" data-type="latest">
+                    <div class="album-cover">
+                        <img src="{{url_for('media.static', filename='img/icons8-disc-50.png')}}"alt="disc icon"></div>
+                    <div class="card-content">
+                        <div class="music-title">Latest Release</div>
+                        <div class="music-artist">Artist: {{name.title()}}</div>
+                        <div class="card-actions">
+                            <a href="{{latest[0]}}" class="action-link" target="_blank">Stream</a>
+                            <a href="{{latest[1]}}" class="action-link secondary" target="_blank">Buy</a>
+                        </div>
+                    </div>
+                </div>
+                
+                {% endif %} 
+
+                <!-- singles -->
+                {% if singles %}
+                {% for single in singles %}
+                <div class="music-card" data-type="singles">
+                    <div class="album-cover">
+                        <img src="{{ url_for('media.static', filename='img/icons8-disc-50.png') }}" alt="disc icon" class="icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="music-title">Single: {{ single.title }}</div>
+                        <div class="music-artist">Artist: {{ single.artist_name }}</div>
+                        <div class="card-actions">
+                            <a href="{{ single.link }}" class="action-link" target="_blank">Stream</a>
+                            {% if single.buy_link %}
+                                <a href="{{ single.buy_link }}" class="action-link secondary" target="_blank">Buy</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+
+                <!-- EPs (dynamic) -->
+                {% for ep in eps %}
+                <div class="music-card" data-type="eps {% if ep.latest %}latest{% endif %}">
+                    <div class="album-cover">
+                        <img src="{{url_for('media.static', filename='img/icons8-disc-60 (1).png')}}"alt="disc icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="music-title">EP: {{ ep.title }}</div>
+                        <div class="music-artist">Artist: {{ name.title() }}</div>
+                        <div class="music-type">EP {% if ep.year %}• {{ ep.year }}{% endif %}</div>
+                        <div class="card-actions">
+                            {% if ep.stream_url %}<a href="{{ ep.stream_url }}" class="action-link" target="_blank">Stream</a>{% endif %}
+                            {% if ep.buy_url %}
+                            <a href="{{ ep.buy_url }}" class="action-link secondary" target="_blank">Buy</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+        </section> 
+
+        <!-- CTA Section -->
+        <section class="cta-section" style="max-width:1000px;margin:3rem auto;padding:2rem 5%">
+            <h2>Get in Touch for Collaborations</h2>
+            <p style="color:#d1d5db;margin-bottom:1.5rem">Interested in featuring, remixing, or collaborating? Let's connect.</p>
+            <a href="{{url_for('contact.contact_route')}}" class="cta-button">Start a Project</a>
+        </section>
+    </main>
+
+    <footer>
+    <div class="social-links">
+        <a href="{{ url_for('terms.terms_route') }}">Terms</a>
+        <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
+        <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
+    </div>
+    <p>© <span id="date"></span> {{ name.title() }}. All rights reserved.</p>
+</footer>
+
+    <!-- <script src="{{url_for('home.static', filename='script.js') }}"></script> -->
+    <script src="{{url_for('media.static', filename='media.js')}}"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    {# Use the g.artist object for the title #}
+    <title>About {{ g.artist.name if g.artist else name }}</title>
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('about.static', filename='about.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <div class="logo">{{ name.upper() }}</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('home.index') }}">Home</a></li>
+            <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+            <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+            <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+            <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+            <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+            <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+            <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+        </ul>
+        <div class="h-menu" id="hamburger" aria-label="Toggle menu">
+            <span class="fa fa-bars"></span>
+        </div>
+    </nav>
+
+    <header class="about-hero">
+        <h1 class="about-logo">{{ hero.hero_title }}</h1>
+        <p class="brief">{{ hero.hero_brief}}</p>
+    </header>
+
+    <main>
+        <!-- <section class="bio-section">
+            <div class="bio-grid">
+                <div class="bio-visual">
+                    <img src="{{ url_for('about.static', filename='img/icons8-book-64.png') }}" alt="disc icon">
+                </div>
+                <div class="bio-text">
+                    <h2>{{ sections.get('foundation', {}).get('title') or 'The Foundation' }}</h2>
+                    {% for para in sections.get('foundation', {}).get('content', {}).get('paragraphs', []) %}
+                        <p>{{ para }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="bio-grid">
+                <div class="bio-text">
+                    <h2>{{ sections.get('craft', {}).get('title') or 'The Craft' }}</h2>
+                    {% for para in sections.get('craft', {}).get('content', {}).get('paragraphs', []) %}
+                        <p>{{ para }}</p>
+                    {% endfor %}
+                </div>
+                <div class="bio-visual">
+                     <img src="{{ url_for('about.static', filename='img/icons8-mic-50.png') }}" alt="disc icon">
+                </div>
+            </div>
+        </section> -->
+
+
+        <section class="bio-section">
+            <div class="bio-grid">
+                <div class="bio-visual">
+                <img src="{{ url_for('about.static', filename='img/icons8-book-64.png') }}" alt="book icon">
+                </div>
+               
+                <div class="bio-text">
+                <h2>The Foundation</h2>
+
+                <p>{{foundation[0].paragraphs}}</p>
+                </div>
+            </div>
+
+            <div class="bio-grid">
+                <div class="bio-text">
+                <h2>The Craft</h2>
+                
+                <p>{{foundation[1].paragraphs}}</p>
+                </div>
+
+                <div class="bio-visual">
+                <img src="{{ url_for('about.static', filename='img/icons8-mic-50.png') }}" alt="mic icon">
+                </div>
+            </div>
+            </section>
+
+
+        <section class="bio-section">
+            <div class="timeline">
+                <h2> The Journey</h2>
+                {% for item in  journey_items%}
+                <div class="timeline-item">
+                    <div class="timeline-year">{{ item.year }}</div>
+                    <p>{{ item.desc }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        {# Expertise Section #}
+        <section class="bio-section">
+            <h2 style="color:#a855f7;text-align:center;font-size:2rem;margin-bottom:2rem;">
+                {{ sections.get('expertise', {}).get('title') or 'Expertise & Specialties' }}
+            </h2>
+
+            <div class="expertise-grid" id="expertiseGrid">
+                {% for exp in expertise %}
+                <div class="expertise-card" data-exp-id="{{ exp.exp_id }}">
+                    <div class="expertise-icon">{{ exp.icon }}</div>
+                    <div class="expertise-title">{{ exp.expertise }}</div>
+                    <div class="expertise-desc">{{ exp.desc }}</div>
+                </div>
+                {% endfor %}
+
+                {# Optional: empty state #}
+                {% if expertise|length == 0 %}
+                <p style="text-align:center;opacity:0.7;">No expertise added yet.</p>
+                {% endif %}
+            </div>
+        </section>
+
+
+        <!-- <section class="testimonials">
+            <h2>{{ sections.get('testimonials', {}).get('title') or 'What Artists Say' }}</h2>
+            <div class="carousel">
+                <button class="carousel-btn" id="prevBtn">← Prev</button>
+                <div style="flex:1">
+                    {% for slide in sections.get('testimonials', {}).get('content', {}).get('slides', []) %}
+                    <div class="carousel-slide{% if loop.first %} active{% endif %}">
+                        <div class="slide-quote">"{{ slide.quote }}"</div>
+                        <div class="slide-author">— {{ slide.author }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-btn" id="nextBtn">Next →</button>
+            </div>
+        </section> -->
+
+        <section class="testimonials">
+            <h2>
+                {{ sections.get('testimonials', {}).get('title') or 'What Artists Say' }}
+            </h2>
+
+  <div class="carousel">
+    <button class="carousel-btn" id="prevBtn">← Prev</button>
+
+    <div style="flex:1">
+      {% for t in testimonials %}
+        <div class="carousel-slide{% if loop.first %} active{% endif %}">
+          <div class="slide-quote">
+            "{{ t.testimonial }}"
+          </div>
+
+          <div class="slide-author">
+            — 
+            {% if t.artist_social %}
+              <a href="{{ t.artist_social }}" target="_blank" rel="noopener">
+                {{ t.artist_name }}
+              </a>
+            {% else %}
+              {{ t.artist_name }}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+
+      {% if testimonials|length == 0 %}
+        <div class="carousel-slide active">
+          <div class="slide-quote">
+            "No testimonials yet."
+          </div>
+          <div class="slide-author">
+            — System
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <button class="carousel-btn" id="nextBtn">Next →</button>
+  </div>
+</section>
+
+
+        
+
+        {# CTA Section #}
+        <section class="cta-section" style="max-width:1000px;margin:3rem auto 4rem;padding:2rem 5%">
+            <h2>{{ sections.get('cta', {}).get('title') or 'Ready to Work Together?' }}</h2>
+            <p>{{ sections.get('cta', {}).get('content', {}).get('text') or 'Let\'s create something extraordinary.' }}</p>
+            {# Added artist_slug to CTA link #}
+            <a href="{{ url_for('contact.contact_route') }}" class="cta-button">
+                {{ sections.get('cta', {}).get('content', {}).get('button') or 'Start a Collaboration' }}
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="{{ url_for('terms.terms_route') }}">Terms</a>
+            <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
+            <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
+        </div>
+        <p>&copy; <span id="date"></span> {{ (g.artist.name if g.artist else name).title() }}. All rights reserved.</p>
+    </footer>
+
+    {# Using the central script for particles and mobile nav #}
+    <!-- <script src="{{ url_for('home.static', filename='script.js') }}"></script> -->
+    <script src="{{ url_for('about.static', filename='about.js') }}"></script>
+</body>
+</html>

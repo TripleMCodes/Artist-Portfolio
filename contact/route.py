@@ -1,0 +1,50 @@
+from flask import render_template, request, redirect, url_for, flash, Blueprint
+import logging
+logging.basicConfig(level=logging.DEBUG)
+from models import Message, User, Admin
+from app import db
+
+contct = Blueprint(
+    "contact",
+    __name__,
+    template_folder="html css js",
+    static_folder="html css js",
+    static_url_path="/contact/static"
+)
+
+@contct.route('/contact', methods=['GET', 'POST'])
+def contact_route():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        # project_type = request.form.get('projectType')
+        # budget = request.form.get('budget')
+        message = request.form.get('message')
+        nda_requested = 'nda' in request.form
+
+        if not all([name, email, message]):
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return {'success': False, 'message': 'All fields are required'}, 400
+            flash('All fields are required', 'error')
+            return redirect(url_for('contact.contact_route'))
+
+        new_message = Message(
+            name=name,
+            email=email,
+            message=message,
+            nda_requested=nda_requested
+        )
+        db.session.add(new_message)
+        db.session.commit()
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return {'success': True, 'message': 'Message sent successfully! I\'ll respond within 48 hours.'}, 200
+
+        flash('Message sent successfully! I\'ll respond within 48 hours.', 'success')
+        return redirect(url_for('contact.contact_route'))
+    
+    admin = Admin.query.first()
+    email = admin.email if admin else None
+    user = User.query.first()
+    name = user.name.upper() if user else ''
+    return render_template('contact.html', name=name, email=email)

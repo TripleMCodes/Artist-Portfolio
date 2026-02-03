@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Events — {{ g.artist.name if g.artist else name.title() }}</title>
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('events.static', filename='events.css') }}">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <div class="logo">{{ g.artist.name if g.artist else name }}</div>
+        <ul class="nav-links" id="navLinks">
+            {# Pass the artist_slug to every link to stay in context #}
+            <li><a href="{{ url_for('home.index') }}">Home</a></li>
+            <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+            <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+            <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+            <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+            <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+            <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+            <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+        </ul>
+
+        <div class="h-menu" id="hamburger" aria-label="Toggle menu">
+            <span class="fa fa-bars">☰</span>
+        </div>
+    </nav>
+
+    <header class="events-hero">
+        <h1>Events & Appearances</h1>
+        {# Dynamic intro using g.artist #}
+        <p class="events-intro">Workshops, performances, and collaborative sessions — find where {{ g.artist.name if g.artist else 'the artist' }} is appearing next.</p>
+    </header>
+
+    <main class="events-main">
+        <section>
+            <h2 class="section-header">🔴 Upcoming & Past Events</h2>
+            <div class="events-grid" id="eventsGrid">
+                {% if events %}
+                {% for event in events %}
+                <div class="event-card">
+                    <div class="event-date">{{ event.date.strftime('%B %d, %Y') if event.date else 'TBA' }}</div>
+                    {% if event.time %}<div class="event-time">⏰ {{ event.time.strftime('%I:%M %p') }}</div>{% endif %}
+                    <div class="event-title">{{ event.title }}</div>
+                    {% if event.location %}<div class="event-location">📍 {{ event.location }}</div>{% endif %}
+                    {% if event.description %}<div class="event-desc">{{ event.description }}</div>{% endif %}
+                    <div class="event-actions">
+                        {# Stay in context even for inquiries #}
+                        <a href="{{ url_for('contact.contact_route') }}" class="event-btn">Inquire</a>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p style="color:#9ca3af;grid-column:1/-1;text-align:center">No events scheduled at this time. Check back soon!</p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="cta-section" style="max-width:1000px;margin:3rem auto;padding:2rem 5%">
+            <h2>Want to Host an Event?</h2>
+            <p style="color:#d1d5db;margin-bottom:1.5rem">Let's collaborate on a workshop, panel, or consultation tailored to your audience.</p>
+            <a href="{{ url_for('contact.contact_route') }}" class="cta-button">Inquire About an Event</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="{{ url_for('terms.terms_route') }}">Terms</a>
+            <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
+            <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
+        </div>
+        <p>&copy; <span id="date"></span> {{ (g.artist.name if g.artist else name).title() }}. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('events.static', filename='events.js') }}"></script>
+    <script src="{{ url_for('home.static', filename='script.js') }}"></script>
+</body>
+</html>

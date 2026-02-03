@@ -1,0 +1,22 @@
+from flask import render_template, Blueprint
+import logging
+from models import User
+
+logging.basicConfig(level=logging.DEBUG)
+
+terms = Blueprint(
+    "terms",
+    __name__,
+    template_folder="html css js",
+    static_folder="html css js",
+    static_url_path="/terms/static"
+)
+
+@terms.route('/terms')
+def terms_route():
+    # Refactor: Filter by the current tenant (artist_id)
+    user = User.query.first()
+    
+    name = user.name.upper()
+    
+    return render_template('terms.html', name=name)

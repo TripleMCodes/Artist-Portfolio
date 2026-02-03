@@ -1,0 +1,26 @@
+{
+    "singles": [
+        {
+            "tile": "xyz",
+            "artist": "Aura",
+            "Album": "Start",
+            "Links":
+            {
+                "youtube": "www.youtube.com/yxy",
+                "spotify": "www.spotify.com/yxy"
+            }
+        },
+         {
+            "tile": "xxxx",
+            "artist": "Aura",
+            "Album": "now",
+            "Links":
+            {
+                "youtube": "www.youtube.com/yxy",
+                "spotify": "www.spotify.com/yxy"
+            }
+        }
+    ]
+}
+
+

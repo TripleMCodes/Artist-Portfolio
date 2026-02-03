@@ -1,0 +1,122 @@
+:root{
+    --cyan: #38bdf8;
+    --indigo: #8b5cf6;
+    --neon-purple: #bc13fe;
+    --glass: rgba(10,12,20,0.45);
+    --muted: #9aaed0;
+    --text: #e6f0ff;
+}
+
+/* Container: use a glassy card that matches index.css theme */
+.lt-wrap{
+    margin: 6rem auto 4rem;
+    max-width: 520px;
+    padding: 2.5rem 1.75rem;
+    background: linear-gradient(180deg, rgba(10,12,20,0.6), rgba(10,12,20,0.45));
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid rgba(56,189,248,0.06);
+    box-shadow: 0 12px 40px rgba(2,6,23,0.6), inset 0 0 30px rgba(139,92,246,0.02);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+}
+
+/* Avatar / profile picture */
+.profile-pic, .lt-avatar{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 1.25rem;
+    object-fit: cover;
+    border: 3px solid var(--cyan);
+    box-shadow: 0 6px 26px rgba(56,189,248,0.08), 0 0 18px rgba(139,92,246,0.04);
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+}
+
+.lt-avatar{background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(139,92,246,0.08)); color: var(--text); font-size:2rem}
+
+/* Title & handle */
+.lt-name{font-size:1.6rem; font-weight:800; color:var(--text); letter-spacing:-0.3px; margin-bottom:.25rem}
+.lt-handle{color:var(--indigo); font-weight:700; margin-bottom:1rem; opacity:0.95}
+.lt-bio{color:var(--muted); font-size:0.95rem; margin-bottom:1.75rem}
+
+/* Links column */
+.lt-links{display:flex; flex-direction:column; gap:12px}
+
+/* Primary button: glass with neon border and soft glow */
+.lt-btn{
+    display:block;
+    padding:14px 16px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:700;
+    color:var(--text);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+    border: 1px solid rgba(56,189,248,0.12);
+    backdrop-filter: blur(8px);
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.lt-btn:hover{transform:translateY(-4px); box-shadow: 0 10px 30px rgba(56,189,248,0.08)}
+
+/* Emphasized style: neon fill on hover */
+.lt-btn.secondary{border-color: rgba(139,92,246,0.12); color:#c9b8ff}
+.lt-btn.secondary:hover{background:linear-gradient(90deg,var(--cyan),var(--indigo)); color:var(--glass)}
+
+/* Small feedback text for copied email */
+.copied{font-size:0.72rem; margin-left:8px; color:var(--indigo); text-transform:uppercase}
+
+.lt-small{margin-top:1.75rem; color: #97a9c9; font-size:0.82rem}
+.lt-small a{color:var(--indigo)}
+
+/* Responsive tweaks */
+@media (max-width:420px){
+    .lt-wrap{margin-top:3.5rem; padding:1.5rem}
+    .lt-name{font-size:1.2rem}
+    .profile-pic, .lt-avatar{width:92px; height:92px}
+}
+
+@media (min-width:1025px){
+    .lt-wrap{margin-top:8rem}
+}
+
+/* Additional queries matching index.css breakpoints for consistent responsive behavior */
+@media (max-width:360px) {
+    .lt-wrap { margin-top: 2.5rem; padding: 1rem; }
+    .lt-name { font-size: 1.05rem; }
+    .lt-bio { font-size: 0.9rem; }
+    .profile-pic, .lt-avatar { width: 76px; height: 76px; }
+    .lt-btn { padding: 10px 12px; font-size: 0.92rem; }
+}
+
+@media (min-width:361px) and (max-width:480px) {
+    .lt-wrap { margin-top: 3.25rem; padding: 1.25rem; }
+    .lt-name { font-size: 1.15rem; }
+    .profile-pic, .lt-avatar { width: 86px; height: 86px; }
+    .lt-btn { padding: 11px 14px; }
+}
+
+@media (min-width:481px) and (max-width:768px) {
+    .lt-wrap { max-width: 460px; padding: 1.75rem; }
+    .lt-name { font-size: 1.35rem; }
+    .lt-links { gap: 10px; }
+    .lt-btn { padding: 12px 14px; }
+}
+
+@media (min-width:769px) and (max-width:1024px) {
+    .lt-wrap { max-width: 640px; padding: 2rem; }
+    .lt-name { font-size: 1.5rem; }
+    .profile-pic, .lt-avatar { width: 100px; height: 100px; }
+}
+
+@media (min-width:1025px) and (max-width:1440px) {
+    .lt-wrap { max-width: 560px; margin-top: 7rem; }
+}
+
+@media (min-width:1441px) {
+    .lt-wrap { margin-top: 10rem; }
+}

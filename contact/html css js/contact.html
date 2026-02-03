@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    {# Use g.artist for title #}
+    <title>Contact — Hire {{ g.artist.name if g.artist else name.title() }}</title>
+    <link rel="stylesheet" href="{{url_for('home.static', filename='index.css')}}">
+    <link rel="stylesheet" href="{{url_for('contact.static', filename='contact.css')}}">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <nav>
+        {# Dynamic logo branding #}
+        <div class="logo">{{ (g.artist.name if g.artist else name).upper() }}</div>
+        <ul class="nav-links" id="navLinks">
+            {# All links now pass the artist_slug to maintain the tenant context #}
+            <li><a href="{{ url_for('home.index') }}">Home</a></li>
+            <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+            <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+            <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+            <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+            <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+            <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+            <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+        </ul>
+
+        <div class="h-menu" id="hamburger" aria-label="Toggle menu">
+            <span class="fa fa-bars"></span>
+        </div>
+    </nav>
+
+    <header class="contact-hero">
+        <h1>Contact {{ g.artist.name if g.artist else name }}</h1>
+        <p>Tell me about your project and preferred timeline. I'll respond with availability and next steps.</p>
+    </header>
+
+    <main>
+        <section class="contact-main">
+            {# Tip: Use POST method and specify an action if you aren't using AJAX #}
+            <form id="hireForm" class="hire-form" method="POST">
+                <div class="form-row">
+                    <div class="field">
+                        <label for="name">Your name</label>
+                        <input id="name" name="name" type="text" placeholder="Full name" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:0.75rem">
+                    <label for="message">Project brief</label>
+                    <textarea id="message" name="message" placeholder="Tell me your goals, references, and any constraints..." required></textarea>
+                </div>
+
+                <div class="submit-row" style="margin-top:0.5rem">
+                    <div>
+                        <label style="display:flex;align-items:center;gap:0.5rem;color:#9ca3af;font-weight:500">
+                            <input id="nda" name="nda" type="checkbox"> Request NDA
+                        </label>
+                        <div class="note">I respond within 48 hours on business days.</div>
+                    </div>
+                    <div>
+                        <button type="submit" class="cta-button">Send Message</button>
+                    </div>
+                </div>
+            </form>
+
+            <aside class="sidebar">
+                <h3 style="color:#c4b5fd;margin-bottom:0.5rem">Collaborating with {{ g.artist.name if g.artist else name }}</h3>
+                <p class="note">
+                    If you’re reaching out about a feature or production, include a short brief with your vision and timeline.
+                </p>
+
+                <h4 style="color:#c4b5fd;margin-top:1rem">Other options</h4>
+                <p class="note">
+                    Email <strong>{{ email }}</strong> to check availability for meetings.
+                </p>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="{{ url_for('terms.terms_route') }}">Terms</a>
+            <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
+            <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
+        </div>
+        <p>&copy; <span id="date"></span> {{ (g.artist.name if g.artist else name).title() }}. All rights reserved.</p>
+    </footer>
+
+    {# Make sure to load the central script for the mobile menu #}
+    <script src="{{ url_for('home.static', filename='script.js') }}"></script>
+    <script src="{{ url_for('contact.static', filename='contact.js') }}"></script>
+</body>
+</html>

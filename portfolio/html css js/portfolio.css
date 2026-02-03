@@ -1,0 +1,32 @@
+.portfolio-hero { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+ }
+.portfolio-hero h1 { color:#a855f7; font-size:2.25rem }
+.portfolio-intro { color:#d1d5db; max-width:900px; margin:0.5rem auto }
+
+.filters { max-width:1100px; margin:1rem auto; padding:0 5%; display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center }
+.filters button { background:rgba(30,41,59,0.6); color:#c4b5fd; border:1px solid rgba(168,85,247,0.08); padding:0.45rem 0.75rem; border-radius:999px; cursor:pointer }
+.filters button.active { background:linear-gradient(135deg,#a855f7,#8b5cf6); color:white }
+
+.portfolio-grid { max-width:1100px; margin:1.5rem auto; padding:0 5%; display:grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap:1rem }
+
+.sample-card { background:rgba(30,41,59,0.6); border:1px solid rgba(168,85,247,0.12); border-radius:12px; overflow:hidden; display:flex; flex-direction:column }
+.sample-thumb { height:160px; background:linear-gradient(135deg,#6366f1 0%,#a855f7 100%); display:flex; align-items:center; justify-content:center; font-size:3rem; color:rgba(255,255,255,0.2) }
+.sample-body { padding:1rem; display:flex; flex-direction:column; gap:0.5rem }
+.sample-title { color:#c4b5fd; font-weight:700 }
+.sample-desc { color:#d1d5db; font-size:0.95rem }
+.sample-tags { display:flex; gap:0.5rem; flex-wrap:wrap }
+.tag { background:rgba(15,23,42,0.6); color:#9ca3af; padding:0.25rem 0.5rem; border-radius:6px; font-size:0.85rem }
+.sample-cta { margin-top:auto; display:flex; justify-content:space-between; align-items:center }
+.view-btn { text-decoration:none; color:#fff; background:linear-gradient(135deg,#a855f7,#8b5cf6); padding:0.45rem 0.85rem; border-radius:999px; font-weight:600 }
+
+/* Modal */
+.overlay { position:fixed; left:0;top:0;right:0;bottom:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:200 }
+.modal { background:rgba(12,18,34,0.96); max-width:900px; width:95%; border-radius:12px; padding:1rem; color:#e6edf3 }
+.modal-header { display:flex; justify-content:space-between; align-items:center; gap:1rem }
+.modal-body { margin-top:0.75rem }
+
+@media (max-width:720px){ .filters{ justify-content:center } }

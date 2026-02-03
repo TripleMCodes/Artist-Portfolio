@@ -1,0 +1,8 @@
+.policy-hero { padding:3rem 5% 1.5rem; display:flex; justify-content: center; align-items: center; flex-direction: column; }
+.policy-hero h1 { color:#a855f7; font-size:2rem }
+.policy-intro { color:#d1d5db; max-width:900px; margin:0.5rem auto }
+.policy-main { max-width:900px; margin:1.25rem auto; padding:0 5% }
+.policy-section { background: rgba(30,41,59,0.6); padding:1rem 1.25rem; border-radius:12px; margin-bottom:1rem; border:1px solid rgba(168,85,247,0.08) }
+.policy-section h2 { color:#c4b5fd; margin-bottom:0.5rem }
+.policy-section p, .policy-section li { color:#d1d5db; line-height:1.6 }
+.policy-section ul { margin-left:1rem; margin-top:0.5rem }

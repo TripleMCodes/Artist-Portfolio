@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <div class="logo">{{ name }}</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ url_for('home.index') }}">Home</a></li>
+            <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+            <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+            <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+            <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+            <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+            <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+            <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+        </ul>
+        <div class="h-menu" id="hamburger">
+            <span class="fa fa-bars"></span>
+        </div>
+    </nav>
+
+    <header>
+        {% if banner_pic %}
+            <img src="{{ url_for('home.static', filename='img/banner picture/' + banner_pic) }}" class="banner-overlay" alt="banner picture">
+        {% endif %}
+        <div class="profile-container">
+            {% if profile_pic %}
+                <img src="{{ url_for('home.static', filename='img/profile picture/' + profile_pic) }}" class="profile-pic" alt="profile picture">
+            {% else %}
+                <div class="profile-pic">A</div>
+            {% endif %}
+
+            <h1 class="profile-name">{{ name }}</h1>
+            <div class="divrofile-title" style="list-style: none; display: flex; gap: 10px; justify-content: center;">
+                {% for skill in skills %}
+                    <li>• {{ skill.title() }}</li>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-section" id="about">
+            <h2>About {{ name.title() }}</h2>
+            <p>{{ short_about }}</p>
+        </section>
+
+        <section class="latest music">
+            <h2 class="section-title">Latest Releases</h2>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                {# Latest EP #}
+                {% if eps and eps|length > 0 %}
+                {% set last_ep = eps[-1] %}
+                <div class="music-card">
+                    <div class="album-cover">
+                        <img src="{{ url_for('media.static', filename='img/icons8-disc-60.png') }}" alt="disc icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="music-title">EP: {{ last_ep.title }}</div>
+                        <div class="music-artist">By: {{ name.title() }}</div>
+                        <div class="card-actions">
+                            {% if last_ep.stream_url %}<a href="{{ last_ep.stream_url }}" class="action-link" target="_blank">Stream</a>{% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Latest Single #}
+                {% if singles and singles|length > 0 %}
+                {% set last_single = singles[-1] %}
+                <div class="music-card">
+                    <div class="album-cover">
+                        <img src="{{ url_for('media.static', filename='img/icons8-disc-50.png') }}" alt="disc icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="music-title">Single: {{ last_single.title }}</div>
+                        <div class="music-artist">By: {{ last_single.artist_name }}</div>
+                        <div class="card-actions">
+                            <a href="{{ last_single.link }}" class="action-link" target="_blank">Stream</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Latest Album #}
+                {% if albums and albums|length > 0 %}
+                {% set last_album = albums[-1] %}
+                <div class="music-card">
+                    <div class="album-cover">
+                        <img src="{{ url_for('media.static', filename='img/icons8-disc-60 (1).png') }}" alt="disc icon">
+                    </div>
+                    <div class="card-content">
+                        <div class="music-title">Album: {{ last_album.title }}</div>
+                        <div class="music-artist">By: {{ last_album.artist_name }}</div>
+                        <div class="card-actions">
+                            <a href="{{ last_album.link }}" class="action-link" target="_blank">Stream</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="posts-section" id="blog">
+            <h2 class="section-title">Latest Transmissions</h2>
+            {% for blog in blogs %}
+                <div class="post-card">
+                    <div class="post-content">
+                        <p class="post-date">{{ blog.date }}</p>
+                        <h3 class="post-title">{{ blog.title }}</h3>
+                        <p class="post-excerpt">{{ blog.excerpt }}</p>
+                        {# Updated blog post link for multi-tenancy #}
+                        <a href="{{ url_for('blog_post.blog_post', blog_id=blog.id) }}" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+
+        <section class="cta-section">
+            {%if sections%}
+            <h2>{{ sections.get('cta', {}).get('title') or 'Ready to Work Together?' }}</h2>
+            <a href="{{ url_for('contact.contact_route') }}" class="cta-button">Start a Collaboration</a>
+            {% else %}
+                <div></div>
+            {%endif%}
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="{{ url_for('terms.terms_route') }}">Terms</a>
+            <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
+            <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
+        </div>
+        <p>&copy; <span id="date"></span> {{ name.title() }}. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('home.static', filename='script.js') }}"></script>
+</body>
+</html>

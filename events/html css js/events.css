@@ -1,0 +1,461 @@
+.events-hero {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.events-hero h1 { color:#e5f0ff; font-size:2.25rem; margin-bottom:0.5rem }
+.events-intro { color:#d1d5db; max-width:900px; margin:0 auto; font-size:1.05rem }
+
+:root {
+    --bg-dark: rgba(10, 10, 20, 0.6);
+    --neon-blue: #00f3ff;
+    --neon-purple: #bc13fe;
+    --card-bg: rgba(10, 10, 20, 0.8);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+}
+
+section {
+    background-color: var(--bg-dark);
+    padding: 80px 20px;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.section-header {
+    color: var(--neon-blue);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    /* Neon Blue glow with a subtle purple secondary shadow */
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.6), 0 0 20px rgba(188, 19, 254, 0.3);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.event-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 243, 255, 0.2);
+    border-radius: 12px;
+    padding: 25px;
+    position: relative;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+/* The "Hint of Purple" top-border accent */
+.event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    opacity: 0.7;
+}
+
+.event-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 25px rgba(0, 243, 255, 0.15), inset 0 0 15px rgba(188, 19, 254, 0.05);
+}
+
+.event-date {
+    font-family: 'Courier New', monospace;
+    color: var(--neon-purple);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.event-time, .event-location {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.event-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 15px 0;
+    line-height: 1.2;
+}
+
+.event-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* --- The Action Button --- */
+.event-btn {
+    display: inline-block;
+    padding: 10px 24px;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.event-btn:hover {
+    background: var(--neon-blue);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/* Custom Red Dot Animation for the header emoji */
+.section-header::first-letter {
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* .events-main { max-width:1100px; margin:1.5rem auto; padding:0 5% }
+
+.section-header { color:#a855f7; font-size:1.8rem; margin:2rem 0 1.5rem; border-bottom:2px solid rgba(168,85,247,0.12); padding-bottom:0.75rem }
+
+.events-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap:1.5rem; margin-bottom:2rem }
+
+.event-card { background:rgba(30,41,59,0.6); border:1px solid rgba(168,85,247,0.08); border-radius:12px; padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem }
+.event-card:hover { border-color:rgba(168,85,247,0.24); box-shadow:0 8px 24px rgba(168,85,247,0.1) }
+
+.event-date { color:#a855f7; font-weight:700; font-size:1.1rem }
+.event-time { color:#d1d5db; font-size:0.95rem }
+.event-title { color:#c4b5fd; font-size:1.25rem; font-weight:700 }
+.event-location { color:#9ca3af; font-size:0.95rem; display:flex; align-items:center; gap:0.5rem }
+.event-desc { color:#d1d5db; font-size:0.95rem; margin-top:0.5rem }
+
+.event-actions { display:flex; gap:0.5rem; margin-top:auto; padding-top:0.75rem }
+.event-btn { flex:1; padding:0.6rem 0.75rem; background:linear-gradient(135deg,#a855f7,#8b5cf6); color:#fff; text-decoration:none; border-radius:8px; text-align:center; font-weight:600; font-size:0.9rem; border:none; cursor:pointer; transition:opacity 0.3s }
+.event-btn:hover { opacity:0.85 }
+.event-btn.secondary { background:transparent; border:1px solid rgba(168,85,247,0.12); color:#c4b5fd }
+
+.map-section { margin:2.5rem 0; background:rgba(30,41,59,0.6); border:1px solid rgba(168,85,247,0.08); border-radius:12px; padding:1.5rem }
+.map-section h2 { color:#c4b5fd; margin-bottom:1rem }
+.map-container { position:relative; width:100%; height:380px; border-radius:8px; overflow:hidden }
+iframe { width:100%; height:100%; border:none }
+
+.past-events { background:rgba(30,41,59,0.6); border:1px solid rgba(168,85,247,0.08); border-radius:12px; padding:1.5rem; margin-top:2rem }
+.past-event-item { display:flex; align-items:center; gap:1rem; padding:1rem 0; border-bottom:1px solid rgba(168,85,247,0.04); color:#d1d5db }
+.past-event-item:last-child { border-bottom:none }
+.past-date { color:#a855f7; font-weight:700; min-width:120px }
+.past-title { color:#c4b5fd; font-weight:600 } */
+
+
+.h-menu {
+  display: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+/* @media (max-width:768px) {
+    .events-hero h1 { font-size:1.75rem }
+    .events-grid { grid-template-columns:1fr }
+    .map-container { height:280px }
+} */
+
+
+/* Small Mobile Devices (360px and below) */
+@media screen and (max-width: 360px) {
+
+    /* --- Navigation --- */
+    nav {
+        padding: 0.5rem 1rem; /* Reduce nav padding to save vertical space */
+    }
+
+    .logo {
+        font-size: 1.1rem; /* Prevent logo from crowding the hamburger menu */
+    }
+
+    /* --- Hero Section --- */
+    .events-hero {
+        padding-top: 4rem; /* Adjust based on your nav height */
+        padding-bottom: 1rem;
+    }
+
+    .events-hero h1 {
+        font-size: 1.75rem; /* Shrink header to prevent excessive wrapping */
+        line-height: 1.2;
+    }
+
+    .events-hero .events-intro {
+        font-size: 0.9rem;
+        padding: 0 0.5rem; /* Ensure text doesn't hit the very edge */
+    }
+
+    /* --- Main Layout & Grid --- */
+    .events-main {
+        padding: 0 0.5rem;
+    }
+
+    .events-grid {
+        grid-template-columns: 1fr; /* Strictly one column */
+        gap: 1rem; /* Reduce gap between cards */
+    }
+
+    /* --- Event Cards --- */
+    .event-card {
+        padding: 1rem; /* Reduce internal card padding (likely 1.5rem+ on desktop) */
+    }
+
+    .event-date {
+        font-size: 0.85rem;
+    }
+
+    .event-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .event-actions .event-btn {
+        width: 100%; /* Make button full width for easier tapping */
+        text-align: center;
+        padding: 0.8rem;
+    }
+
+    /* --- CTA Section --- */
+    /* Note: We use !important here to override the inline styles in your HTML */
+    .cta-section {
+        margin: 2rem auto !important;
+        padding: 1.5rem 1rem !important;
+    }
+
+    .cta-section h2 {
+        font-size: 1.4rem;
+    }
+
+    /* --- Footer --- */
+    footer {
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+
+    .social-links {
+        display: flex;
+        flex-direction: column; /* Stack links vertically if horizontal space fails */
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    footer p {
+        font-size: 0.8rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-links a {
+    padding: 1rem;
+    display: block;
+    text-align: center;
+  }
+
+  .h-menu {
+    display: block;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .events-hero {
+    padding: 2.5rem 1rem;
+    text-align: center;
+  }
+
+  .events-hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .events-intro {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .event-card {
+    padding: 1.25rem;
+  }
+
+  .cta-section {
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    display: none;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .h-menu {
+    display: block;
+  }
+
+  .events-hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .events-hero h1 {
+    font-size: 2.3rem;
+  }
+
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .cta-section {
+    padding: 2.5rem 1.5rem;
+  }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .h-menu {
+    display: none;
+  }
+
+  /* .nav-links {
+     position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    display: none;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .h-menu {
+    display: block;
+  } */
+
+  .nav-links {
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .events-hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .cta-section {
+    text-align: center;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .events-hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .event-card {
+    padding: 1.75rem;
+  }
+}
+
+
+@media (min-width: 1441px) {
+  .events-main {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .events-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
