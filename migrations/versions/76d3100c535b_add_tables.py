@@ -1,8 +1,8 @@
-"""add nuked tables
+"""add tables
 
-Revision ID: c8443d1091d1
+Revision ID: 76d3100c535b
 Revises: 
-Create Date: 2026-01-28 16:24:45.317433
+Create Date: 2026-02-04 20:39:29.943193
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c8443d1091d1'
+revision = '76d3100c535b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -102,6 +102,12 @@ def upgrade():
     sa.Column('hero_brief', sa.Text(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('journey',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('year', sa.Integer(), nullable=False),
+    sa.Column('desc', sa.Text(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('linktree_config',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('avatar', sa.Text(), nullable=False),
@@ -185,6 +191,7 @@ def downgrade():
     op.drop_table('media_config')
     op.drop_table('linktree_link')
     op.drop_table('linktree_config')
+    op.drop_table('journey')
     op.drop_table('hero_about')
     op.drop_table('gallery')
     op.drop_table('foundation_about')

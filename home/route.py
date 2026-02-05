@@ -32,7 +32,7 @@ def index():
 
     
     user = User.query.first()
-    name = user.name.upper()
+    name = user.name.upper() or ""
     about = user.short_about if user else ""
 
     # 3. Scope Visuals (Profile & Banner)

@@ -32,10 +32,10 @@ def admin_login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    admin_user = Admin.query.filter_by(email=email).first()
-    print(admin_user)
     print(email)
     print(password)
+    admin_user = Admin.query.filter_by(email=email).first()
+    print(admin_user)
 
     if not admin_user:
        
@@ -174,10 +174,11 @@ def update_password():
     from app import db
     logging.debug(data)
     
-    admin_user = current_user
+    # admin_user = current_user
+    admin_user = Admin.query.first()
     
-    if not admin_user.artist_id:
-        return {"message": "Error - Admin not properly configured"}, 400
+    # if not admin_user.artist_id:
+    #     return {"message": "Error - Admin not properly configured"}, 400
     
     if not check_password_hash(admin_user.password, data.get("old_password")):
         return {"message": "Error - passwords don't match"}, 401
@@ -196,12 +197,12 @@ def update_email():
     from app import db
     data = request.get_json()
     logging.debug(data)
+    # admin_user = current_user
+    admin_user = Admin.query.first()
 
-    # MULTI-TENANT SAFE: Use current_user instead of email lookup
-    admin_user = current_user
     
     if not check_password_hash(admin_user.password, data.get("password")):
-        return {"message": "Error - passwords don't match"}, 401
+        return {"message": "Error - please enter correct password."}, 401
     
     # Check if new email already exists
     existing = Admin.query.filter_by(email=data.get('new_email')).first()
@@ -294,7 +295,11 @@ def update_profile_picture():
                     os.remove(old_path)
             return {"message": "Profile picture updated"}, 200
         else:
-            return {"message": "User not found"}, 404
+            user = ProfileImg(id=1, profile_picture=filename)
+            db.session.add(user)
+            db.session.commit()
+            return {"message": "Profile picture updated"}, 200
+            # return {"message": "User not found"}, 404
     else:
         return {"message": "Invalid file type"}, 400
 
@@ -1250,21 +1255,44 @@ def upsert_foundation():
     from app import db
 
     data = request.get_json() or {}
-    title = (data.get("title") or "").strip()
+    paragraphs_arr = data.get("paragraphsArr") or []
 
-    print('showing data')
-    print(data['paragraphsArr'][0])
-    print(data['paragraphsArr'][1])
+    # Safely grab the two paragraphs (default to empty string)
+    p1 = (paragraphs_arr[0] if len(paragraphs_arr) > 0 else "") or ""
+    p2 = (paragraphs_arr[1] if len(paragraphs_arr) > 1 else "") or ""
+    p1, p2 = p1.strip(), p2.strip()
 
-    updates = [
-            {"id": 1, "title": "paragraph_one", "paragraphs": data['paragraphsArr'][0]},
-            {"id": 2, "title": "paragraph_two", "paragraphs": data['paragraphsArr'][1]}
-        ]
+    # Check if table is empty
+    table_empty = db.session.query(FoundationAbout.id).first() is None
 
-    db.session.bulk_update_mappings(FoundationAbout, updates)
+    if table_empty:
+        # Insert two rows
+        db.session.add_all([
+            FoundationAbout(id=1, title="paragraph_one", paragraphs=p1),
+            FoundationAbout(id=2, title="paragraph_two", paragraphs=p2),
+        ])
+        db.session.commit()
+        return {"message": "Foundation section successfully created."}, 201
+
+    # Table has data -> update existing rows; create if missing
+    row1 = FoundationAbout.query.get(1)
+    row2 = FoundationAbout.query.get(2)
+
+    if row1 is None:
+        row1 = FoundationAbout(id=1, title="paragraph_one", paragraphs=p1)
+        db.session.add(row1)
+    else:
+        row1.title = "paragraph_one"
+        row1.paragraphs = p1
+
+    if row2 is None:
+        row2 = FoundationAbout(id=2, title="paragraph_two", paragraphs=p2)
+        db.session.add(row2)
+    else:
+        row2.title = "paragraph_two"
+        row2.paragraphs = p2
+
     db.session.commit()
-
-   
     return {"message": "Foundation section successfully updated."}, 200
 
 @admin.route("/journey", methods=["POST"])

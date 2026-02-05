@@ -8,66 +8,6 @@ from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
 
-# ============================================================================
-# MULTI-TENANT MODELS (Artist/Tenant Support)
-# ============================================================================
-# 
-# Data isolation strategy:
-#   - Artist model as the top-level tenant
-#   - All tenant-scoped models include artist_id foreign key + index
-#   - Queries must always filter by artist_id
-#   - Cascading deletes: ON DELETE CASCADE to clean up artist data
-#
-# Future: Add tenant context middleware/fixtures for query scoping
-# ============================================================================
-
-
-# class Artist(db.Model):
-#     """
-#     Represents an independent tenant/artist in the system.
-    
-#     All artist-owned content (blogs, events, media, etc.) links to this model
-#     via artist_id. Each artist has completely isolated data.
-    
-#     Attributes:
-#         id: Unique artist identifier
-#         name: Artist display name
-#         slug: URL-safe identifier (e.g., 'aura', 'john-doe')
-#         email: Primary contact email
-#         short_about: Brief bio/description
-#         bio: Extended biography
-#         is_active: Soft-delete flag; use for disabling artist without data loss
-#         created_at: Timestamp of artist creation
-#         updated_at: Last modification timestamp
-    
-#     Relationships:
-#         admin: One-to-one with Admin (artist's login account)
-#         blogs: One-to-many with Blog
-#         events: One-to-many with Event
-#         galleries: One-to-many with Gallery
-#         services: One-to-many with Service
-#         faqs: One-to-many with FAQ
-#         linktree_links: One-to-many with LinktreeLink
-#         media_config: One-to-many with MediaConfig (artist-specific config)
-#     """
-#     __tablename__ = "artist"
-
-#     id = db.Column(db.Integer, primary_key=True, nullable=False)
-#     name = db.Column(db.Text, nullable=False)  # Display name
-#     slug = db.Column(db.String(128), nullable=False, unique=True)  # URL-safe identifier
-#     email = db.Column(db.Text, nullable=False)
-#     short_about = db.Column(db.Text, nullable=True)
-#     bio = db.Column(db.Text, nullable=True)
-#     is_active = db.Column(db.Boolean, default=True, nullable=False)
-#     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
-#     updated_at = db.Column(db.DateTime, nullable=False, default=db.func.now(), onupdate=db.func.now())
-
-#     # Relationships
-#     admin = db.relationship("Admin", back_populates="artist", uselist=False, cascade="all, delete-orphan")
-
-#     def __repr__(self):
-#         return f"<Artist {self.slug}>"
-
 
 class Admin(db.Model, UserMixin):
     __tablename__ = "admin"
@@ -271,9 +211,9 @@ class LinktreeConfig(db.Model):
     __tablename__ = 'linktree_config'
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    avatar = db.Column(db.Text, nullable=False, default='A')
-    name = db.Column(db.Text, nullable=False, default='Artist')
+    avatar = db.Column(db.Text, nullable=False, default='V')
+    name = db.Column(db.Text, nullable=False, default='Vickeykae')
     handle = db.Column(db.Text, nullable=False, default='')
     bio = db.Column(db.Text, nullable=False, default='')
-    email = db.Column(db.Text, nullable=False, default='')
+    email = db.Column(db.Text, nullable=False, default='khona6047@gmail.com')
 

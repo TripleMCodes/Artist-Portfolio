@@ -83,16 +83,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   saveBtn.addEventListener("click", async () => {
-    const title = titleEl.value.trim();
+    // const title = titleEl.value.trim();
 
     const paragraphsArr = Array.from(parasWrap.querySelectorAll(".foundation-para"))
       .map(t => t.value.trim())
       .filter(Boolean);
 
-    if (!title) {
-      setStatus("Please provide a title.", true);
-      return;
-    }
+    console.log(paragraphsArr)
+
+    // if (!title) {
+    //   setStatus("Please provide a title.", true);
+    //   return;
+    // }
     if (paragraphsArr.length === 0) {
       setStatus("Add at least one paragraph.", true);
       return;
