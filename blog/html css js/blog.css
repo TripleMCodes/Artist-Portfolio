@@ -1,386 +1,328 @@
+/* =========================
+   BLOG ARCHIVE — HOME THEME
+   White/Cream + Gold + Soft Blue Aura
+========================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root{
+  --gold: #B78628;
+  --gold-soft: rgba(183,134,40,0.18);
+  --ink: #141414;
+  --muted: rgba(20,20,20,0.68);
+  --cream: #f6f0e3;
+  --paper: #ffffff;
+
+  --aura: rgba(132, 201, 240, 0.28);
+  --aura2: rgba(132, 201, 240, 0.16);
+
+  --line: rgba(0,0,0,0.06);
+  --shadow: rgba(0,0,0,0.10);
+}
+
 main{
   display: flex;
   flex-direction: column;
-}
-.archive-hero {
-            padding: 3.5rem 5% 2rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-/* .archive-hero h1 {
-    font-size: 3.5rem;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    background: linear-gradient(to right, var(--neon-blue), #fff, var(--neon-purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: glowPulse 6s infinite ease-in-out  alternate;
+  width: min(1100px, 92%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
-    100% { text-shadow: 0 0 20px rgba(188, 19, 254, 1.0), 0 0 40px rgba(188, 19, 254, 1.0); }
-} */
+/* =========================
+   ARCHIVE HERO
+========================= */
+.archive-hero{
+  padding: 5rem 5% 2.2rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-.handwrite {
-    font-family: 'Pacifico', cursive;
-    font-size: 3.5rem;
-    background: linear-gradient(to right, var(--neon-blue), #fff, var(--neon-purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    /* color: transparent; */
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    animation: write 3s steps(40) forwards;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(183,134,40,0.16), transparent 50%),
+    radial-gradient(circle at 50% 65%, rgba(132,201,240,0.14), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,240,227,0.55));
+  border-bottom: 1px solid var(--line);
+  border-radius: 26px;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes write {
-    from { width: 0 }
-    to { width: 100% }
+/* aura orb behind title */
+.archive-hero::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:62%;
+  transform: translate(-50%, -50%);
+  width: min(520px, 86vw);
+  aspect-ratio: 1/1;
+  border-radius: 999px;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.65), transparent 56%),
+    radial-gradient(circle at 50% 50%, var(--aura), transparent 66%),
+    radial-gradient(circle at 50% 50%, rgba(132,201,240,0.20), transparent 74%);
+  opacity: 0.92;
 }
 
-.handwrite {
-    animation: write 3s steps(40) forwards, penGlow 1s infinite alternate;
+/* =========================
+   HANDWRITTEN TITLE (still animated)
+========================= */
+.handwrite{
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  color: var(--ink);
+  letter-spacing: 0.02em;
+
+  /* keep the “reveal” animation */
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: write 2.6s steps(38) forwards, penGlow 1.2s infinite alternate;
 }
 
-@keyframes penGlow {
-    from { text-shadow: 0 0 5px rgba(0,243,255,0.3); }
-    to { text-shadow: 0 0 12px rgba(188,19,254,0.6); }
+/* gold divider under the handwriting */
+.handwrite::after{
+  content:"";
+  display:block;
+  width: 92px;
+  height: 2px;
+  margin: 1rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.9;
 }
 
-
-
-.archive-intro {
-    color: #d1d5db;
-    max-width: 900px;
-    margin: 0.5rem auto 1rem;
+@keyframes write{
+  from { width: 0 }
+  to { width: 100% }
 }
 
-.search-bar {
-    max-width: 700px;
-    margin: 1rem auto;
-    display: flex;
-    gap: 0.5rem;
+@keyframes penGlow{
+  from { text-shadow: 0 0 6px rgba(183,134,40,0.18); }
+  to   { text-shadow: 0 0 14px rgba(132,201,240,0.22), 0 0 18px rgba(183,134,40,0.20); }
 }
 
-.search-bar input {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: 1px solid rgba(168,85,247,0.12);
-    background: rgba(15,23,42,0.6);
-    color: #e6edf3;
-    outline: none;
+/* Intro text */
+.archive-intro{
+  color: rgba(20,20,20,0.68);
+  max-width: 900px;
+  margin: 0.85rem auto 0;
+  line-height: 1.8;
+  font-size: 1.02rem;
 }
 
-.search-bar button {
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    border: none;
-    background: linear-gradient(135deg,#a855f7,#8b5cf6);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
+/* =========================
+   SEARCH BAR (parchment glass)
+========================= */
+.search-bar{
+  width: min(760px, 100%);
+  margin: 1.6rem auto 0;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.78);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 18px 64px rgba(0,0,0,0.08);
+  backdrop-filter: blur(12px);
 }
 
-.archive-grid {
-    max-width: 1100px;
-    margin: 1.5rem auto 4rem;
-    padding: 0 5%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
-    gap: 1.25rem;
-    display: flex;
-    flex-direction: column;
-} 
+.search-bar input{
+  flex: 1;
+  padding: 0.85rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid rgba(183,134,40,0.20);
+  background: rgba(255,255,255,0.82);
+  color: var(--ink);
+  outline: none;
+}
 
-.small-meta { color: #9ca3af; font-size: 0.9rem; margin-bottom: 0.4rem }
+.search-bar input::placeholder{
+  color: rgba(20,20,20,0.45);
+}
 
+.search-bar input:focus{
+  border-color: rgba(183,134,40,0.40);
+  box-shadow: 0 0 0 4px rgba(183,134,40,0.12);
+}
 
+.search-bar button{
+  padding: 0.85rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--gold);
+  color: white;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 18px 56px rgba(183,134,40,0.22);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.search-bar button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 26px 82px rgba(183,134,40,0.30);
+}
+
+/* =========================
+   ARCHIVE GRID (fix: your CSS had grid + flex both)
+========================= */
+.archive-grid{
+  width: 100%;
+  margin: 2rem auto 3.5rem;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.2rem;
+}
+
+/* If you’re reusing the homepage .post-card, this will complement it.
+   If not, it still makes a clean card style. */
+.post-card{
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(183,134,40,0.18);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 14px 50px rgba(0,0,0,0.08);
+  backdrop-filter: blur(12px);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+}
+
+.post-card::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background: radial-gradient(circle at 20% 20%, rgba(183,134,40,0.12), transparent 55%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.post-card:hover{
+  transform: translateY(-3px);
+  border-color: rgba(183,134,40,0.35);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.10);
+}
+
+.small-meta{
+  color: rgba(20,20,20,0.55);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* =========================
+   PAGINATION (gold pills)
+========================= */
 .pagination-container{
   display: flex;
   justify-content: center;
+  margin-bottom: 2.5rem;
 }
 
 .pagination{
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:16px;
-  margin:32px 0 8px;
+  gap: 12px;
+  margin: 12px 0 8px;
   flex-wrap:wrap;
 }
 
-.page-btn{
-  padding:10px 14px;
-  border-radius:10px;
+.page-btn,
+.page-number,
+.page-ellipsis{
+  padding: 10px 14px;
+  border-radius: 999px;
   text-decoration:none;
-  border:1px solid rgba(255,255,255,0.15);
+
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(183,134,40,0.22);
+  color: rgba(20,20,20,0.72);
+
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.page-btn:hover,
+.page-number:hover{
+  transform: translateY(-2px);
+  background: rgba(183,134,40,0.10);
+  border-color: rgba(183,134,40,0.40);
+  box-shadow: 0 18px 54px rgba(0,0,0,0.10);
 }
 
 .page-btn.disabled{
-  opacity:0.4;
-  cursor:not-allowed;
-}
-
-.page-numbers{
-  display:flex;
-  gap:8px;
-  align-items:center;
-}
-
-.page-number, .page-ellipsis{
-  padding:8px 12px;
-  border-radius:10px;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,0.12);
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .page-number.active{
-  font-weight:700;
-  border:1px solid rgba(255,255,255,0.35);
+  font-weight: 900;
+  color: #fff;
+  background: var(--gold);
+  border-color: rgba(183,134,40,0.55);
+  box-shadow: 0 18px 56px rgba(183,134,40,0.26);
 }
 
-
-
-.h-menu {
-  display: none;
-  cursor: pointer;
+/* =========================
+   MOBILE NAV (match homepage)
+   (Your nav styles likely come from global CSS;
+    these keep the blog page consistent if needed.)
+========================= */
+.h-menu{
+  display:none;
+  cursor:pointer;
   font-size: 1.4rem;
 }
 
-@media (max-width: 360px) {
-  body {
-    font-size: 14px;
-  }
+@media (max-width: 768px){
+  .h-menu{ display:block; }
 
-  nav {
-    padding: 0.75rem 1rem;
-  }
-
-  header{
-    margin-top: 2rem;
-    /* padding-top: 5rem; */
-  }
-
-  .logo {
-    font-size: 1rem;
-  }
-
-  .h-menu {
-        display: block;
-  }
-
-  .nav-links {
-    display: none;
+  .nav-links{
+    display:none;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
     position: absolute;
     top: 100%;
     right: 0;
-    background: #0f0f0f;
-    padding: 2rem;
     width: 100%;
     text-align: center;
+    padding: 1.8rem 1.2rem;
+    background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid var(--line);
   }
 
-  .nav-links.active {
-    display: flex;
-  }
+  .nav-links.active{ display:flex; }
 
-  .archive-hero {
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .archive-hero h1 {
-    font-size: 1.6rem;
-  }
-
-  .archive-intro {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  .search-bar {
+  .search-bar{
     flex-direction: column;
-    gap: 0.75rem;
+    border-radius: 22px;
   }
 
   .search-bar input,
-  .search-bar button {
+  .search-bar button{
     width: 100%;
   }
 
-  .archive-grid {
+  .archive-grid{
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-    padding: 0 1rem;
-  }
-
-  .post-card {
-    flex-direction: column;
-  }
-
-  footer p {
-    font-size: 0.75rem;
-    text-align: center;
   }
 }
 
-
-@media (min-width: 361px) and (max-width: 480px) {
-    header{
-    margin-top: 2rem;
-    /* padding-top: 5rem; */
-  }
-
-    .h-menu {
-        display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #0f0f0f;
-    padding: 2rem;
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-
-  .archive-hero h1 {
-    font-size: 1.9rem;
-  }
-
-  .archive-intro {
-    font-size: 0.95rem;
-  }
-
-  .search-bar {
-    flex-direction: column;
-  }
-
-  .archive-grid {
-    grid-template-columns: 1fr;
-    padding: 0 1.25rem;
-  }
-
-  .post-card {
-    flex-direction: column;
-  }
+@media (max-width: 360px){
+  body{ font-size: 14px; }
+  .archive-hero{ padding: 3.2rem 1rem 2rem; }
 }
-
-
-@media (min-width: 481px) and (max-width: 768px) {
-  nav {
-    padding: 1rem 1.5rem;
-  }
-
-
-  .h-menu {
-        display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    gap: 1.5rem;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #0f0f0f;
-    padding: 2rem;
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-
-  .archive-hero {
-    padding: 3rem 1.5rem;
-  }
-
-  .archive-hero h1 {
-    font-size: 2.3rem;
-  }
-
-  .search-bar {
-    max-width: 500px;
-    margin: 1.5rem auto 0;
-  }
-
-  .archive-grid {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-    padding: 0 1.5rem;
-  }
-
-  .post-card {
-    flex-direction: row;
-    gap: 1rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  nav {
-    padding: 1.25rem 3rem;
-  }
-
-  .archive-hero {
-    padding: 4rem 3rem;
-  }
-
-  .archive-hero h1 {
-    font-size: 2.8rem;
-  }
-
-  .search-bar {
-    max-width: 600px;
-  }
-
-  .archive-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1440px) {
-  .archive-hero h1 {
-    font-size: 3.2rem;
-  }
-
-  .archive-grid {
-    grid-template-columns: repeat(3, 1fr);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 1441px) {
-  main {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-}
-

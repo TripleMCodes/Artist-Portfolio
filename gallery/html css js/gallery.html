@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Gallery — {{ g.artist.name if g.artist else name.title() }}</title>
+  <title>Gallery — {{ name.title() }}</title>
   <link rel="stylesheet" href="{{url_for('gallery.static', filename='gallery.css')}}">
   <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
 </head>
@@ -11,7 +11,7 @@
   <div class="particles" id="particles"></div>
 
   <nav>
-    <div class="logo">{{ g.artist.name if g.artist else name }}</div>
+    <div class="logo">{{ name.title() }}</div>
     <ul class="nav-links" id="navLinks">
         {# Required artist_slug added to all nav items #}
         <li><a href="{{ url_for('home.index') }}">Home</a></li>
@@ -31,7 +31,7 @@
 
   <header class="gallery-hero">
     <h1>Gallery</h1>
-    <p>Visual transmissions from the world of {{ g.artist.name if g.artist else name }}.</p>
+    <p>Visual transmissions from the world of {{ name.title() }}.</p>
   </header>
 
   <main class="gallery-main">

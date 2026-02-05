@@ -1029,8 +1029,7 @@ def upload_gallery_image():
         import uuid
         filename = f"{uuid.uuid4().hex}_{filename}"
         upload_folder = os.path.join(
-            os.path.dirname(__file__), '..', 'gallery', 'html css js', 'img',
-            f'artist_{user.uid}'
+            os.path.dirname(__file__), '..', 'gallery', 'html css js', 'img'
         )
         os.makedirs(upload_folder, exist_ok=True)
         file_path = os.path.join(upload_folder, filename)
