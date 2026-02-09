@@ -2,6 +2,7 @@
 import os
 from sqlalchemy import inspect
 from werkzeug.security import generate_password_hash
+import json
 
 
 def _table_exists(db, table_name: str) -> bool:
@@ -19,6 +20,7 @@ def seed_all(db):
         return
 
     seed_admin(db)
+    seed_media_config(db)
     seed_user_profile(db)
     seed_foundation_about(db)
     seed_journey_defaults(db)
@@ -77,3 +79,53 @@ def seed_journey_defaults(db):
     for row in defaults:
         if not Journey.query.filter_by(year=row["year"]).first():
             db.session.add(Journey(**row))
+
+
+
+
+def seed_media_config(db):
+    from models import MediaConfig
+
+    defaults = {
+        "latest": [
+            "https://youtube.com",
+            "https://bandlab"
+        ],
+        "eps": [
+            {
+                "title": "Solitude",
+                "year": "2023",
+                "stream_url": "https://youtube.com/@vickykae",
+                "buy_url": "https://bandcamp.com",
+                "artist": None
+            }
+        ],
+        "featured_playlist": "https://open.spotify.com/@vickykae",
+        "streaming": {
+            "spotify": "https://spotify.com",
+            "soundcloud": "https://on.soundcloud.com/vytY8liCK5auv86bYK",
+            "youtubemusic": "https://www.youtube.com/@ConnorOdyssey",
+            "applemusic": "https://applemusic.com/@vi",
+            "audiomack": "https://audiomack.com/@vickykae",
+            "bandcamp": "https://amazon.com"
+        }
+    }
+
+    for key, value in defaults.items():
+        exists = MediaConfig.query.filter_by(key=key).first()
+        if exists:
+            continue
+
+        # Store JSON as string when needed
+        if isinstance(value, (dict, list)):
+            stored_value = json.dumps(value)
+        else:
+            stored_value = value
+
+        db.session.add(
+            MediaConfig(
+                key=key,
+                value=stored_value
+            )
+        )
+

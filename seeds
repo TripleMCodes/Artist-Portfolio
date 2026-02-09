@@ -1,4 +1,13 @@
+Can you create a seeding function for this table:
+
+class MediaConfig(db.Model):
+    __tablename__ = 'media_config'
+
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    key = db.Column(db.String(64), nullable=False)
+    value = db.Column(db.Text, nullable=True)  # JSON string or plain text
+
 latest	["https://youtube.com", "https://bandlab"]
-eps	[{"title": "Solitude", "year": "2023", "stream_url": "https://youtube.com//@vickykae", "buy_url": "https://bandcamp.com", "artist": null}]
+eps	    [{"title": "Solitude", "year": "2023", "stream_url": "https://youtube.com//@vickykae", "buy_url": "https://bandcamp.com", "artist": null}]
 featured_playlist	https://open.Spotify.com//@vickykae
-streaming	{"spotify": "https://spotify.com", "soundcloud": "https://on.soundcloud.com/vytY8liCK5auv86bYK", "youtubemusic": "https://www.youtube.com/@ConnorOdyssey", "applemusic": "https://AppleMusic.com//@vi", "audiomack": "https://audiomack.com//@vickykae", "bandcamp": "https://amazon.com"}
+streaming	    {"spotify": "https://spotify.com", "soundcloud": "https://on.soundcloud.com/vytY8liCK5auv86bYK", "youtubemusic": "https://www.youtube.com/@ConnorOdyssey", "applemusic": "https://AppleMusic.com//@vi", "audiomack": "https://audiomack.com//@vickykae", "bandcamp": "https://amazon.com"}
