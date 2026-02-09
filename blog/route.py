@@ -18,7 +18,7 @@ def index():
     page = request.args.get("page", default=1, type=int)
     per_page = request.args.get("per_page", default=2, type=int)
 
-    # guardrails (so someone can't request per_page=5000 and cook your server)
+    # guardrails (so someone can't request per_page=5000)
     per_page = max(1, min(per_page, 2))
     page = max(1, page)
 

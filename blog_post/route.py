@@ -16,7 +16,8 @@ blog = Blueprint(
 @blog.route('/blog/<int:blog_id>')
 def blog_post( blog_id):
 
-    blog_post = Blog.query.first_or_404()
+    print(f"The id is: {blog_id}")
+    blog_post = Blog.query.filter(Blog.id == blog_id).first_or_404()
 
     user = User.query.first()
 

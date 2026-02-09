@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     {# Updated title to use g.artist #}
-    <title>{{ blog.title }} — {{ g.artist.name if g.artist else name }}</title>
+    <title>{{ blog.title }} — {{ name.title() }}</title>
     <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
     <link rel="stylesheet" href="{{ url_for('blog_post.static', filename='blog-post.css') }}">
 </head>
@@ -13,7 +13,7 @@
 
     <nav>
         {# Dynamic logo based on the current alter ego #}
-        <div class="logo">{{ g.artist.name if g.artist else name }}</div>
+        <div class="logo">{{ name.title() }}</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="{{ url_for('home.index') }}">Home</a></li>
             <li><a href="{{ url_for('about.about_route') }}">About</a></li>
@@ -40,14 +40,14 @@
                 {# Safety check for date formatting #}
                 <span class="post-date">{{ blog.date.strftime('%B %d, %Y') if blog.date else 'Recent Transmission' }}</span>
                 <span>•</span>
-                <span id="readingTime">{{ blog.reading_time or 5 }} min read</span>
+                <span id="readingTime">{{ blog.reading_time or "" }} min read</span>
             </div>
         <p style="color:#9ca3af;max-width:900px;font-style: italic;">{{ blog.excerpt }}</p>
     </header>
 
     <main>
         <article class="post-content" id="postContent">
-            {# The |safe filter is correct here for rendering Markdown/HTML from your database #}
+            {# The |safe filter is correct here for rendering Markdown/HTML from database #}
             {{ html_content | safe }}
         </article>
     </main>
@@ -61,7 +61,7 @@
         <p>&copy; <span id="date"></span> {{ (g.artist.name if g.artist else name).title() }}. All rights reserved.</p>
     </footer>
 
-    {# Included script.js for the particles and mobile menu #}
+    
     <script src="{{ url_for('home.static', filename='script.js') }}"></script>
     <script src="{{ url_for('blog_post.static', filename='blog-post.js') }}"></script>
 </body>

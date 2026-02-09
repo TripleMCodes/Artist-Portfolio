@@ -156,16 +156,10 @@
             </div>
         </section>
 
-        <section class="cta-section">
-            {%if sections%}
-                <div class="cta-inner">
-                    <h2>{{ sections.get('cta', {}).get('title') or 'Ready to Work Together?' }}</h2>
-                    <a href="{{ url_for('contact.contact_route') }}" class="cta-button">Start a Collaboration</a>
-                    <div class="cta-motif" aria-hidden="true">🕯️</div>
-                </div>
-            {% else %}
-                <div></div>
-            {%endif%}
+        <section class="cta-section" style="max-width:1000px;margin:3rem auto;padding:2rem 5%">
+            <h2>Get in Touch for Collaborations</h2>
+            <p style="color:#d1d5db;margin-bottom:1.5rem">Interested in featuring, remixing, or collaborating? Let's connect.</p>
+            <a href="{{url_for('contact.contact_route')}}" class="cta-button">Start a Project</a>
         </section>
     </main>
 
