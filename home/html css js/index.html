@@ -30,10 +30,19 @@
 
     <!-- Ethereal motif strip (subtle, can be styled like a watermark line) -->
     <div class="motif-strip" aria-hidden="true">
-        <span class="motif">♥</span>
-        <span class="motif">🦢</span>
-        <span class="motif">🕯️</span>
-        <span class="motif">✝️</span>
+        <span class="motif">
+            <img src="{{ url_for('media.static', filename='img/icons8-heart-50.png') }}" alt="heart icon">
+        </span>
+        <span class="motif">
+             <img src="{{ url_for('media.static', filename='img/icons8-swan-48.png') }}" alt="swan icon">
+        </span>
+        <span class="motif">
+            <img src="{{ url_for('media.static', filename='img/icons8-candle-48.png') }}" alt="candle icon">
+        </span>
+        <span class="motif">
+            <img src="{{ url_for('media.static', filename='img/icons8-christian-cross-48.png') }}" alt="cross icon">
+
+        </span>
     </div>
 
     <header class="hero">

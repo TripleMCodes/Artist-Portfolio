@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{name.title()}} — Links</title>
-  <link rel="stylesheet" href="{{url_for('home.static', filename='styles.css')}}">
+  <!-- <link rel="stylesheet" href="{{url_for('home.static', filename='index.css')}}"> -->
   <link rel="stylesheet" href="{{url_for('linktree.static', filename='linktree.css')}}">
 </head>
 <body>
@@ -26,7 +26,7 @@
   </nav>
 
   <div class="lt-wrap">
-    {% if profile_pic %}
+    {% if profile_pic or "" %}
       <img src="{{ url_for('home.static', filename='img/profile picture/' + profile_pic) }}" class="profile-pic" alt="profile picture">
     {% else %}
       <div class="lt-avatar">{{ config.avatar }}</div>
@@ -133,6 +133,6 @@
   </div>
 
   <script src="{{url_for('linktree.static', filename='linktree.js')}}"></script>
-  <script src="{{url_for('home.static', filename='script.js') }}"></script>
+  <!-- <script src="{{url_for('home.static', filename='script.js') }}"></script> -->
 </body>
 </html>

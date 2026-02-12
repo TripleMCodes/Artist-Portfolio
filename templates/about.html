@@ -1,41 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    {# Use the g.artist object for the title #}
-    <title>About {{ g.artist.name if g.artist else name }}</title>
-    <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('about.static', filename='about.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-    <div class="particles" id="particles"></div>
+{% extends "base.html" %}
 
-    <nav>
-        <div class="logo">{{ name.upper() }}</div>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{{ url_for('home.index') }}">Home</a></li>
-            <li><a href="{{ url_for('about.about_route') }}">About</a></li>
-            <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
-            <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
-            <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
-            <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
-            <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
-            <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
-        </ul>
-        <div class="h-menu" id="hamburger" aria-label="Toggle menu">
-            <span class="fa fa-bars"></span>
-        </div>
-    </nav>
+{% block title %}
+  About {{ name }}
+{% endblock %}
 
-    <header class="about-hero">
-        <h1 class="about-logo">{{ hero.hero_title }}</h1>
-        <p class="brief">{{ hero.hero_brief}}</p>
-    </header>
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('about.static', filename='about.css') }}">
+{% endblock %}
 
-    <main>
-        <!-- <section class="bio-section">
+{% block header %}
+  <header class="about-hero">
+    <h1 class="about-logo">{{ hero.hero_title }}</h1>
+    <p class="brief">{{ hero.hero_brief }}</p>
+  </header>
+{% endblock %}
+
+{% block content %}
+  <!-- <section class="bio-section">
             <div class="bio-grid">
                 <div class="bio-visual">
                     <img src="{{ url_for('about.static', filename='img/icons8-book-64.png') }}" alt="disc icon">
@@ -196,19 +177,8 @@
                 {{ sections.get('cta', {}).get('content', {}).get('button') or 'Start a Collaboration' }}
             </a>
         </section>
-    </main>
+{% endblock %}
 
-    <footer>
-        <div class="social-links">
-            <a href="{{ url_for('terms.terms_route') }}">Terms</a>
-            <a href="{{ url_for('conditions.conditions_route') }}">Conditions</a>
-            <a href="{{ url_for('privacy.privacy_route') }}">Privacy</a>
-        </div>
-        <p>&copy; <span id="date"></span> {{ (g.artist.name if g.artist else name).title() }}. All rights reserved.</p>
-    </footer>
-
-    {# Using the central script for particles and mobile nav #}
-    <!-- <script src="{{ url_for('home.static', filename='script.js') }}"></script> -->
-    <script src="{{ url_for('about.static', filename='about.js') }}"></script>
-</body>
-</html>
+{% block page_js %}
+  <script src="{{ url_for('about.static', filename='about.js') }}"></script>
+{% endblock %}

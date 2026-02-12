@@ -14,8 +14,6 @@ def _table_exists(db, table_name: str) -> bool:
 
 
 def seed_all(db):
-    # If migrations haven't created tables yet, do nothing.
-    # This prevents flask db init/migrate from exploding.
     if not _table_exists(db, "admin"):
         return
 
@@ -128,4 +126,3 @@ def seed_media_config(db):
                 value=stored_value
             )
         )
-

@@ -74,7 +74,7 @@ nav{
   font-weight: 750;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--gold);
 }
 
 .logo::after{

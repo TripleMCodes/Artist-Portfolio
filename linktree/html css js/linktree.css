@@ -21,13 +21,6 @@
 
 /* Base */
 *{ box-sizing: border-box; }
-body{
-  margin: 0;
-  color: var(--ink);
-  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,240,227,0.72));
-  overflow-x: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
 
 /* Background banner image */
 .banner-overlay{
@@ -45,14 +38,22 @@ body::before{
   content:"";
   position: fixed;
   inset: 0;
-  z-index: 1;
+  /* z-index: 1; */
   background:
-    radial-gradient(circle at 50% 22%, rgba(183,134,40,0.16), transparent 52%),
-    radial-gradient(circle at 50% 60%, rgba(132,201,240,0.14), transparent 62%),
+    radial-gradient(circle at 50% 22%, rgba(183,134,40,0.16), transparent 53%),
+    radial-gradient(circle at 50% 60%, rgba(132,201,240,0.80), transparent 67%),
     linear-gradient(180deg, rgba(255,255,255,0.82), rgba(246,240,227,0.80));
   backdrop-filter: blur(6px);
+  /* object-fit: cover; */
 }
 
+body{
+  margin: 0;
+  color: var(--ink);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,240,227,0.72));
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 /* Keep content above background */
 nav, .lt-wrap{ position: relative; z-index: 2; }
 
@@ -60,8 +61,8 @@ nav, .lt-wrap{ position: relative; z-index: 2; }
    NAV
 ========================= */
 nav{
-  position: sticky;
-  top: 0;
+  /* position: sticky;
+  top: 0; */
   width: 100%;
   padding: 1rem 5%;
   display: flex;
@@ -78,7 +79,7 @@ nav{
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 1rem;
-  color: var(--ink);
+  color: var(--gold);
 }
 
 .nav-links{
@@ -166,7 +167,7 @@ nav{
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: clamp(1.4rem, 3vw, 2.2rem);
-  color: var(--ink);
+  color: var(--gold);
 }
 
 .lt-handle{

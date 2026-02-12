@@ -9,8 +9,8 @@ logging.basicConfig(level=logging.DEBUG)
 home = Blueprint(
     'home',
     __name__,
-    template_folder="html css js",
-    static_folder="html css js",
+    template_folder="./../templates",
+    static_folder="./../templates/home",
     static_url_path='/home/static'
 )
 

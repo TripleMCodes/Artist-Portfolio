@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Home {{ name }}
+{% endblock %}
+
+{% block page_css %}
+  <link rel="stylesheet" href="{{ url_for('home.static', filename='index.css') }}">
+{% endblock %}
+
+ {% block motif_strip %}
+ {% endblock %}
+
+{% block header %}
+  <header class="about-hero">
+    <h1 class="about-logo">{{ hero.hero_title }}</h1>
+    <p class="brief">{{ hero.hero_brief }}</p>
+  </header>
+{% endblock %}
+
+{% block content %}
+  {# ...paste your about <section> blocks here... #}
+{% endblock %}
+
+{% block page_js %}
+ <script src="{{ url_for('home.static', filename='script.js') }}"></script>
+{% endblock %}

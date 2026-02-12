@@ -9,8 +9,8 @@ logging.basicConfig(level=logging.DEBUG)
 about = Blueprint(
     'about',
     __name__,
-    template_folder="html css js",
-    static_folder='html css js',
+    template_folder="./../templates",
+    static_folder='./../templates/about',
     static_url_path='/about/static'
 )
 
