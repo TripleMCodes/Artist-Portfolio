@@ -7,8 +7,8 @@ from app import db
 media = Blueprint(
     'media',
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/media',
     static_url_path='/media/static'
 )
 
