@@ -5,8 +5,8 @@ import logging
 events = Blueprint(
     'events',
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/events',
     static_url_path='/events/static'
 )
 

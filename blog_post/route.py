@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.DEBUG)
 blog = Blueprint(
     'blog_post',
     __name__,
-    template_folder="html css js",
-    static_folder="html css js",
+    template_folder="./../templates",
+    static_folder="./../templates/blog-post",
     static_url_path="/blog_post/static"
 )
 

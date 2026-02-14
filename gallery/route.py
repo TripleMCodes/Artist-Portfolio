@@ -5,8 +5,8 @@ from urllib.parse import urlparse, parse_qs
 gallery = Blueprint(
     'gallery',
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/gallery',
     static_url_path='/gallery/static'
 )
 
@@ -20,7 +20,6 @@ def gallery_route():
 
     for item in gallery_items:
         if item.type == 'video':
-            # Changed item.video_url to item.url to match your models.py
             url = item.url
             if not url:
                 item.video_id = None

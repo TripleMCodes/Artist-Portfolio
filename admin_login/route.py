@@ -1009,6 +1009,7 @@ def delete_single():
 @admin.route('/upload gallery image', methods=['POST'])
 @login_required
 def upload_gallery_image():
+
     from app import db
     # from flask import g
     user = User.query.first()
@@ -1029,7 +1030,7 @@ def upload_gallery_image():
         import uuid
         filename = f"{uuid.uuid4().hex}_{filename}"
         upload_folder = os.path.join(
-            os.path.dirname(__file__), '..', 'gallery', 'html css js', 'img'
+            os.path.dirname(__file__), '..', 'templates', 'gallery', 'img'
         )
         os.makedirs(upload_folder, exist_ok=True)
         file_path = os.path.join(upload_folder, filename)

@@ -7,8 +7,8 @@ from app import db
 contct = Blueprint(
     "contact",
     __name__,
-    template_folder="html css js",
-    static_folder="html css js",
+    template_folder="./../templates",
+    static_folder="./../templates/contact",
     static_url_path="/contact/static"
 )
 
@@ -17,8 +17,6 @@ def contact_route():
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
-        # project_type = request.form.get('projectType')
-        # budget = request.form.get('budget')
         message = request.form.get('message')
         nda_requested = 'nda' in request.form
 

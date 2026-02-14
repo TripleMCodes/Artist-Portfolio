@@ -6,8 +6,8 @@ from models import User, Admin
 privacy = Blueprint(
     'privacy',
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/privacy',
     static_url_path='/privacy/static'
 )
 

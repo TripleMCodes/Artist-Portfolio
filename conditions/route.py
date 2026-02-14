@@ -7,8 +7,8 @@ logging.basicConfig(level=logging.DEBUG)
 conditions = Blueprint(
     'conditions',
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/conditions',
     static_url_path='/conditions/static'
 )
 
