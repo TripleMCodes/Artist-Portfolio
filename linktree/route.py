@@ -6,8 +6,8 @@ logging.basicConfig(level=logging.DEBUG)
 linktree = Blueprint(
     "linktree",
     __name__,
-    template_folder='html css js',
-    static_folder='html css js',
+    template_folder='./../templates',
+    static_folder='./../templates/linktree',
     static_url_path='/linktree/static'
 )
 

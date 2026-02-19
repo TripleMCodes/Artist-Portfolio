@@ -18,8 +18,8 @@ logging.basicConfig(level=logging.DEBUG)
 admin = Blueprint(
     "admin",
     __name__,
-    template_folder="html css js",
-    static_folder="html css js",
+    template_folder="html",
+    static_folder="scripts",
     static_url_path="/admin/static" 
 )
 

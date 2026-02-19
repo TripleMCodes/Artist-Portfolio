@@ -16,13 +16,16 @@
 
   <nav>
     <div class="logo">{{name}}</div>
-    <ul class="nav-links">
-      <li><a href="{{url_for('home.index')}}">Home</a></li>
-      <li><a href="{{url_for('about.about_route')}}">About</a></li>
-      <li><a href="{{url_for('service.service_route')}}">Services</a></li>
-      <li><a href="{{url_for('all_blogs.index')}}">Blog</a></li>
-      <li><a href="{{url_for('contact.contact_route')}}">Contact</a></li>
-    </ul>
+     <ul class="nav-links" id="navLinks">
+        <li><a href="{{ url_for('home.index') }}">Home</a></li>
+        <li><a href="{{ url_for('about.about_route') }}">About</a></li>
+        <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
+        <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
+        <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
+        <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
+        <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
+        <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
+      </ul>
   </nav>
 
   <div class="lt-wrap">
