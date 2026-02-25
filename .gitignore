@@ -1,1 +1,4 @@
 ./database
+admin_login\gen_hash.py
+seeds
+portfolio.db
