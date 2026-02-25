@@ -5,8 +5,6 @@ function notify(message) {
     setTimeout(() => msgBox.classList.remove('on'), 5000);
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const heroIdEl = document.getElementById("hero-id");
   const titleEl = document.getElementById("hero-title");
@@ -186,7 +184,11 @@ function saveSection(sectionName) {
         notify(data.message);
         alert('Added successfully.')
     })
-    .catch(err => notify('Error saving section'));
+      .catch(err => {
+        alert('Error saving section')
+        notify('Error saving section')
+      }
+      );
     
 }
 
@@ -393,8 +395,6 @@ document.addEventListener("DOMContentLoaded", () => {
           alert(data.message || "Failed to delete expertise.");
           return;
         }
-
-        // Remove from DOM ✅
         card.remove();
 
       } catch (err) {

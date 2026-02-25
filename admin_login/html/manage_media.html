@@ -23,7 +23,7 @@
         <h1>Manage Media</h1>
 
         <div class="section">
-            <h3>Streaming Links</h3>
+            <h3>Streaming Links and Social Links</h3>
             <p>Update the link for each streaming service.</p>
             <label>Spotify</label>
             <input id="spotify" type="text" placeholder="https://open.spotify.com/..." value="{{ streaming.get('spotify','') }}">
@@ -39,7 +39,29 @@
             <input id="bandcamp" type="text" placeholder="https://bandcamp.com/..." value="{{ streaming.get('bandcamp','') }}">
             <label>Amazon Music</label>
             <input id="amazon" type="text" placeholder="https://music.amazon.com/..." value="{{ streaming.get('amazon','') }}">
+
+            <label>Instagram</label>
+            <input id="insta" type="text" placeholder="https://instagram.com/..." value="{{ streaming.get('instagram','') }}">
+
+            <label>Tiktok</label>
+            <input id="tiktok" type="text" placeholder="https://tiktok.com/..." value="{{ streaming.get('tiktok','') }}">
+
+            <label>facebook</label>
+            <input id="facebook" type="text" placeholder="https://facebook.com/..." value="{{ streaming.get('facebook','') }}">
+
+            <label>Youtube</label>
+            <input id="youtube" type="text" placeholder="https://youtube.com/..." value="{{ streaming.get('youtube','') }}">
+
+            <label>Paytrion</label>
+            <input id="Paytrion" type="text" placeholder="https://paytrion.com/..." value="{{ streaming.get('paytrion','') }}">
+
+            <label>Twitter/X</label>
+            <input id="x" type="text" placeholder="https://x.com/..." value="{{ streaming.get('x','') }}">
+
+
+
             <div style="margin-top:.6rem"><button class="save-btn" onclick="saveStreaming()">Save Streaming Links</button></div>
+
         </div>
 
         <div class="section">

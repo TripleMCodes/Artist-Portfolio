@@ -4,8 +4,6 @@
     form.addEventListener('submit', function(e){
         e.preventDefault();
         
-        // 1. Get the current artist_slug from the URL path
-        // This splits "/mephistopheles/contact" and takes "mephistopheles"
         const pathParts = window.location.pathname.split('/');
         const artistSlug = pathParts[1]; 
 
@@ -27,8 +25,7 @@
             formData.append('nda', 'on');
         }
 
-        // 2. Updated Fetch URL to include the artist_slug
-        fetch(`/${artistSlug}/contact`, {
+        fetch(`/contact`, {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'

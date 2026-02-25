@@ -169,13 +169,10 @@
         
 
         {# CTA Section #}
-        <section class="cta-section" style="max-width:1000px;margin:3rem auto 4rem;padding:2rem 5%">
-            <h2>{{ sections.get('cta', {}).get('title') or 'Ready to Work Together?' }}</h2>
-            <p>{{ sections.get('cta', {}).get('content', {}).get('text') or 'Let\'s create something extraordinary.' }}</p>
-            {# Added artist_slug to CTA link #}
-            <a href="{{ url_for('contact.contact_route') }}" class="cta-button">
-                {{ sections.get('cta', {}).get('content', {}).get('button') or 'Start a Collaboration' }}
-            </a>
+        <section class="cta-section" style="max-width:1000px;margin:3rem auto;padding:2rem 5%">
+            <h2>Get in Touch for Collaborations</h2>
+            <p style="color:#d1d5db;margin-bottom:1.5rem">Interested in featuring, remixing, or collaborating? Let's connect.</p>
+            <a href="{{url_for('contact.contact_route')}}" class="cta-button">Start a Project</a>
         </section>
 {% endblock %}
 

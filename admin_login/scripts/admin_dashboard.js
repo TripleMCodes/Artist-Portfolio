@@ -62,9 +62,11 @@ name_btn_input.addEventListener('click', function () {
             let n = data.message;
             name_input.value = ""
             notify(n);
+            alert(n)
     }).catch(err => {
         let n = 'Error - Name not updated';
         notify(n)
+        alert(n)
         return ""
     })
 })
@@ -91,6 +93,7 @@ email_btn.addEventListener('click', function () {
             new_email_input.value = ''
             password_input.value = ''
             notify(data.message)
+            alert(data.message)
             return
         }).catch(error => {
             alert("Error - Password not updated")
@@ -122,6 +125,7 @@ password_btn_input.addEventListener('click', function () {
             new_password_input.value = ""
             email_input.value = ""
             notify(n);
+            alert(n)
         } 
     ).catch(error => {
         let n = 'Error - Password not updated';
@@ -155,6 +159,7 @@ skill_btn.addEventListener('click', function () {
         }).catch(err => {
             let n = 'Error - Skill not added'
             notify(n)
+            alert(n)
             return ""
     })
 })
@@ -184,9 +189,11 @@ about_btn.addEventListener('click', function () {
             let n = data.message
             about_textarea.value = ''
             notify(n)
+            alert(n)
         }).catch(err => {
             let n = 'Error - Short About not updated'
             notify(n)
+            alert(n)
     })
 })
 
@@ -207,9 +214,11 @@ update_pp_btn.addEventListener('click', function () {
             let n = data.message;
             profile_pic_file.value = "";
             notify(n);
+            alert(n)
         }).catch(err => {
             let n = 'Error - Profile picture not updated';
             notify(n);
+            alert(n)
         });
 })
 
@@ -230,9 +239,11 @@ update_bp_btn.addEventListener('click', function () {
             let n = data.message;
             banner_pic_file.value = "";
             notify(n);
+            alert(n)
         }).catch(err => {
             let n = 'Error - Banner picture not updated';
             notify(n);
+            alert(n)
         });
 })
 
@@ -243,6 +254,7 @@ function deleteSkill(id) {
         }).then(response => response.json())
         .then(data => {
             notify(data.message);
+            alert(data.message)
             // Remove the skill item from DOM
             const button = document.querySelector(`.delete-skill-btn[onclick="deleteSkill(${id})"]`);
             if (button) {
@@ -250,6 +262,7 @@ function deleteSkill(id) {
             }
         }).catch(err => {
             notify('Error deleting skill');
+            alert('Error deleting skill');
         });
     }
 }
