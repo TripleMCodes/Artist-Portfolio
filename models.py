@@ -215,5 +215,4 @@ class LinktreeConfig(db.Model):
     name = db.Column(db.Text, nullable=False, default='Vickeykae')
     handle = db.Column(db.Text, nullable=False, default='')
     bio = db.Column(db.Text, nullable=False, default='')
-    email = db.Column(db.Text, nullable=False, default='khona6047@gmail.com')
-
+    email = db.Column(db.Text, nullable=False, default='example@gmail.com')

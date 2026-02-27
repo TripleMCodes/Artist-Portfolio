@@ -60,19 +60,33 @@ if (hamburger && navLinks) {
   if (slides.length === 0) return;
 
   let index = 0;
+  let isScrolling = false;
 
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
+  const getSlideWidth = () => {
+    // Get the actual width of a slide from its bounding rect
+    if (slides.length === 0) return 0;
+    return slides[0].getBoundingClientRect().width || slides[0].offsetWidth || 260;
+  };
+
+  const getScrollGap = () => {
+    // Calculate the gap between slides
+    const computedStyle = window.getComputedStyle(track);
+    const gapStr = computedStyle.columnGap || computedStyle.gap || "0";
+    return parseFloat(gapStr);
+  };
+
   const getStep = () => {
-    // Use offsets so it works even if card width changes responsively
-    if (slides.length < 2) return slides[0].getBoundingClientRect().width;
-    return slides[1].offsetLeft - slides[0].offsetLeft;
+    // Step is card width + gap
+    return getSlideWidth() + getScrollGap();
   };
 
   const setIndexFromScroll = () => {
     const step = Math.max(getStep(), 1);
-    const i = Math.round(viewport.scrollLeft / step);
-    index = clamp(i, 0, slides.length - 1);
+    const scrollLeft = viewport.scrollLeft;
+    const closestIndex = Math.round(scrollLeft / step);
+    index = clamp(closestIndex, 0, slides.length - 1);
   };
 
   const updateUI = () => {
@@ -80,18 +94,29 @@ if (hamburger && navLinks) {
     btnNext && (btnNext.disabled = index === slides.length - 1);
 
     if (dotsWrap) {
-      const dots = Array.from(dotsWrap.querySelectorAll("button.dot"));
+      const dots = Array.from(dotsWrap.querySelectorAll("button"));
       dots.forEach((d, di) => d.setAttribute("aria-current", di === index ? "true" : "false"));
     }
   };
 
   const goTo = (i, smooth = true) => {
     index = clamp(i, 0, slides.length - 1);
+    const step = getStep();
+    const targetScroll = index * step;
+    
+    isScrolling = true;
     viewport.scrollTo({
-      left: slides[index].offsetLeft,
+      left: targetScroll,
       behavior: smooth ? "smooth" : "auto",
     });
+    
+    // Update UI immediately
     updateUI();
+    
+    // Clear flag after scroll completes
+    setTimeout(() => {
+      isScrolling = false;
+    }, 500);
   };
 
   // Build dots
@@ -121,11 +146,13 @@ if (hamburger && navLinks) {
   // Keep dots in sync when user scrolls manually
   let scrollTimer = null;
   viewport.addEventListener("scroll", () => {
+    if (isScrolling) return; // Skip if we're programmatically scrolling
+    
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
       setIndexFromScroll();
       updateUI();
-    }, 80);
+    }, 100);
   });
 
   // Touch swipe snap (nice on mobile)
@@ -137,6 +164,7 @@ if (hamburger && navLinks) {
     touching = true;
     startX = e.touches[0].clientX;
     startLeft = viewport.scrollLeft;
+    isScrolling = true;
   }, { passive: true });
 
   viewport.addEventListener("touchmove", (e) => {
@@ -147,12 +175,18 @@ if (hamburger && navLinks) {
 
   viewport.addEventListener("touchend", () => {
     touching = false;
+    isScrolling = false;
     setIndexFromScroll();
-    goTo(index); // snap
+    goTo(index, false); // snap without smooth scroll
   });
 
-  window.addEventListener("resize", () => goTo(index, false));
+  window.addEventListener("resize", () => {
+    // Recalculate and ensure current slide is visible
+    goTo(index, false);
+  });
 
-  // Init
-  goTo(0, false);
+  // Init with a small delay to ensure layout is complete
+  setTimeout(() => {
+    goTo(0, false);
+  }, 50);
 })();

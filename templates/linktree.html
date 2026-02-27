@@ -18,13 +18,6 @@
     <div class="logo">{{name}}</div>
      <ul class="nav-links" id="navLinks">
         <li><a href="{{ url_for('home.index') }}">Home</a></li>
-        <li><a href="{{ url_for('about.about_route') }}">About</a></li>
-        <li><a href="{{ url_for('media.media_route') }}">Media</a></li>
-        <li><a href="{{ url_for('all_blogs.index') }}">Blog</a></li>
-        <li><a href="{{ url_for('contact.contact_route') }}">Contact</a></li>
-        <li><a href="{{ url_for('events.events_route') }}">Events</a></li>
-        <li><a href="{{ url_for('gallery.gallery_route') }}">Gallery</a></li>
-        <li><a href="{{ url_for('linktree.linktree_route') }}">Linktree</a></li>
       </ul>
   </nav>
 
@@ -44,82 +37,143 @@
 
       <!-- CAROUSEL -->
       <section class="carousel" data-carousel>
-        <button class="carousel-btn prev" type="button" data-carousel-prev aria-label="Previous">
+        <!-- <button class="carousel-btn prev" type="button" data-carousel-prev aria-label="Previous">
           ‹
-        </button>
+        </button> -->
 
-        <div class="carousel-viewport" data-carousel-viewport>
+        <!-- <div class="carousel-viewport" data-carousel-viewport> -->
           <div class="carousel-track" data-carousel-track>
 
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-spotify-48.png')}}" alt="Spotify icon">
-              </div>
-              <div class="streaming-title">Spotify</div>
-              <p class="streaming-desc">Listen on the world's largest music platform.</p>
-              <a href="{{ streaming.get('spotify','https://open.spotify.com/') }}" class="streaming-btn" target="_blank">Open Spotify</a>
-            </div>
+           
+            {% set platforms = [
+              {
+                "key": "spotify",
+                "name": "Spotify",
+                "desc": "Listen on the world's largest music platform.",
+                "icon": "img/icons8-spotify-48.png",
+                "btn": "Open Spotify"
+              },
+              {
+                "key": "soundcloud",
+                "name": "SoundCloud",
+                "desc": "Discover behind-the-scenes tracks and demos.",
+                "icon": "img/icons8-soundcloud-48.png",
+                "btn": "Visit SoundCloud"
+              },
+              {
+                "key": "youtubemusic",
+                "name": "YouTube Music",
+                "desc": "Watch music videos and listen to the catalogue.",
+                "icon": "img/icons8-youtube-music-48.png",
+                "btn": "Open YouTube Music"
+              },
+              {
+                "key": "applemusic",
+                "name": "Apple Music",
+                "desc": "Stream with lossless audio quality.",
+                "icon": "img/icons8-apple-music-48.png",
+                "btn": "Open Apple Music"
+              },
+              {
+                "key": "audiomack",
+                "name": "Audiomack",
+                "desc": "Access exclusive independent artist content.",
+                "icon": "img/icons8-audiomack-48.png",
+                "btn": "Visit Audiomack"
+              },
+              {
+                "key": "bandcamp",
+                "name": "Bandcamp",
+                "desc": "Direct support: stream and purchase.",
+                "icon": "img/icons8-bandcamp-30.png",
+                "btn": "Visit Bandcamp"
+              },
+              {
+                "key": "amazonmusic",
+                "name": "Amazon Music",
+                "desc": "Stream on Amazon Music.",
+                "icon": "img/icons8-amazon-music-48.png",
+                "btn": "Open Amazon Music"
+              },
+              {
+                "key": "itunes",
+                "name": "iTunes",
+                "desc": "Buy and download music on iTunes.",
+                "icon": "img/icons8-itunes-64.png",
+                "btn": "Open iTunes"
+              },
+              {
+                "key": "youtube",
+                "name": "YouTube",
+                "desc": "Available on YouTube.",
+                "icon": "img/icons8-youtube-48.png",
+                "btn": "Open YouTube"
+              },
+              {
+                "key": "instagram",
+                "name": "Instagram",
+                "desc": "Available on Instagram.",
+                "icon": "img/icons8-instagram-48.png",
+                "btn": "Open Instagram"
+              },
+              {
+                "key": "tiktok",
+                "name": "TikTok",
+                "desc": "Available on TikTok.",
+                "icon": "img/icons8-tiktok-94.png",
+                "btn": "Open TikTok"
+              },
+              {
+                "key": "facebook",
+                "name": "Facebook",
+                "desc": "Available on Facebook.",
+                "icon": "img/icons8-facebook-48.png",
+                "btn": "Open Facebook"
+              },
+              {
+                "key": "threads",
+                "name": "Threads",
+                "desc": "Available on Threads.",
+                "icon": "img/icons8-threads-50 - Copy.png",
+                "btn": "Open Threads"
+              },
+              {
+                "key": "x",
+                "name": "X",
+                "desc": "Available on X.",
+                "icon": "img/icons8-x-24.png",
+                "btn": "Open X"
+              }
+            ] %}
 
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-soundcloud-48.png')}}" alt="soundcloud icon">
-              </div>
-              <div class="streaming-title">SoundCloud</div>
-              <p class="streaming-desc">Discover behind-the-scenes tracks and demos.</p>
-              <a href="{{ streaming.get('soundcloud','https://soundcloud.com/') }}" class="streaming-btn" target="_blank">Visit SoundCloud</a>
-            </div>
+            {% set s = streaming or {} %}
 
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-youtube-music-48.png')}}" alt="youtube music icon">
-              </div>
-              <div class="streaming-title">YouTube Music</div>
-              <p class="streaming-desc">Watch music videos and listen to the catalogue.</p>
-              <a href="{{ streaming.get('youtubemusic','https://music.youtube.com/') }}" class="streaming-btn" target="_blank">Open YouTube Music</a>
-            </div>
+            {% for platform in platforms %}
+              {% if s.get(platform.key) %}
+              <div class="streaming-card">
+                <div class="streaming-icon">
+                  <img src="{{ url_for('media.static', filename=platform.icon) }}"
+                      alt="{{ platform.name }} icon">
+                </div>
 
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-apple-music-48.png')}}" alt="Apple Music icon">
-              </div>
-              <div class="streaming-title">Apple Music</div>
-              <p class="streaming-desc">Stream with lossless audio quality.</p>
-              <a href="{{ streaming.get('applemusic','https://www.apple.com/apple-music/') }}" class="streaming-btn" target="_blank">Open Apple Music</a>
-            </div>
+                <div class="streaming-title">{{ platform.name }}</div>
+                <p class="streaming-desc">{{ platform.desc }}</p>
 
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-audiomack-48.png')}}" alt="AudioMack icon">
+                <a href="{{ s.get(platform.key)|trim }}"
+                  class="streaming-btn"
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  {{ platform.btn }}
+                </a>
               </div>
-              <div class="streaming-title">AudioMack</div>
-              <p class="streaming-desc">Access exclusive independent artist content.</p>
-              <a href="{{ streaming.get('audiomack','https://www.audiomack.com/') }}" class="streaming-btn" target="_blank">Visit AudioMack</a>
-            </div>
-
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-bandcamp-30.png')}}" alt="Bandcamp icon">
-              </div>
-              <div class="streaming-title">Bandcamp</div>
-              <p class="streaming-desc">Direct support: stream and purchase.</p>
-              <a href="{{ streaming.get('bandcamp','https://bandcamp.com/') }}" class="streaming-btn" target="_blank">Visit Bandcamp</a>
-            </div>
-
-            <div class="streaming-card">
-              <div class="streaming-icon">
-                <img src="{{url_for('media.static', filename='img/icons8-amazon-music-48.png')}}" alt="Amazon Music icon">
-              </div>
-              <div class="streaming-title">Amazon Music</div>
-              <p class="streaming-desc">Stream on Amazon Music.</p>
-              <a href="{{ streaming.get('amazon','https://music.amazon.com/') }}" class="streaming-btn" target="_blank">Open Amazon Music</a>
-            </div>
-
+              {% endif %}
+            {% endfor %}     
           </div>
-        </div>
+        <!-- </div> -->
 
-        <button class="carousel-btn next" type="button" data-carousel-next aria-label="Next">
+        <!-- <button class="carousel-btn next" type="button" data-carousel-next aria-label="Next">
           ›
-        </button>
+        </button> -->
 
         <div class="carousel-dots" data-carousel-dots aria-label="Carousel pagination"></div>
       </section>

@@ -16,37 +16,10 @@
 {% endblock %}
 
 {% block content %}
-  <!-- <section class="bio-section">
-            <div class="bio-grid">
-                <div class="bio-visual">
-                    <img src="{{ url_for('about.static', filename='img/icons8-book-64.png') }}" alt="disc icon">
-                </div>
-                <div class="bio-text">
-                    <h2>{{ sections.get('foundation', {}).get('title') or 'The Foundation' }}</h2>
-                    {% for para in sections.get('foundation', {}).get('content', {}).get('paragraphs', []) %}
-                        <p>{{ para }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="bio-grid">
-                <div class="bio-text">
-                    <h2>{{ sections.get('craft', {}).get('title') or 'The Craft' }}</h2>
-                    {% for para in sections.get('craft', {}).get('content', {}).get('paragraphs', []) %}
-                        <p>{{ para }}</p>
-                    {% endfor %}
-                </div>
-                <div class="bio-visual">
-                     <img src="{{ url_for('about.static', filename='img/icons8-mic-50.png') }}" alt="disc icon">
-                </div>
-            </div>
-        </section> -->
-
-
         <section class="bio-section">
             <div class="bio-grid">
                 <div class="bio-visual">
-                <img src="{{ url_for('about.static', filename='img/icons8-book-64.png') }}" alt="book icon">
+                <img src="{{ url_for('about.static', filename='img/icons8-open-book-50.png') }}" alt="book icon">
                 </div>
                
                 <div class="bio-text">
@@ -64,7 +37,7 @@
                 </div>
 
                 <div class="bio-visual">
-                <img src="{{ url_for('about.static', filename='img/icons8-mic-50.png') }}" alt="mic icon">
+                <img src="{{ url_for('about.static', filename='img/icons8-radio-studio-50.png') }}" alt="mic icon">
                 </div>
             </div>
             </section>
@@ -84,7 +57,7 @@
 
         {# Expertise Section #}
         <section class="bio-section">
-            <h2 style="color:#a855f7;text-align:center;font-size:2rem;margin-bottom:2rem;">
+            <h2 >
                 {{ sections.get('expertise', {}).get('title') or 'Expertise & Specialties' }}
             </h2>
 
@@ -104,22 +77,6 @@
             </div>
         </section>
 
-
-        <!-- <section class="testimonials">
-            <h2>{{ sections.get('testimonials', {}).get('title') or 'What Artists Say' }}</h2>
-            <div class="carousel">
-                <button class="carousel-btn" id="prevBtn">← Prev</button>
-                <div style="flex:1">
-                    {% for slide in sections.get('testimonials', {}).get('content', {}).get('slides', []) %}
-                    <div class="carousel-slide{% if loop.first %} active{% endif %}">
-                        <div class="slide-quote">"{{ slide.quote }}"</div>
-                        <div class="slide-author">— {{ slide.author }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <button class="carousel-btn" id="nextBtn">Next →</button>
-            </div>
-        </section> -->
 
         <section class="testimonials">
             <h2>

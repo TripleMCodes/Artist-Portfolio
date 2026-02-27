@@ -25,23 +25,36 @@
         <div class="section">
             <h3>Streaming Links and Social Links</h3>
             <p>Update the link for each streaming service.</p>
+
             <label>Spotify</label>
             <input id="spotify" type="text" placeholder="https://open.spotify.com/..." value="{{ streaming.get('spotify','') }}">
+
             <label>SoundCloud</label>
             <input id="soundcloud" type="text" placeholder="https://soundcloud.com/..." value="{{ streaming.get('soundcloud','') }}">
+
             <label>YouTube Music</label>
             <input id="youtubemusic" type="text" placeholder="https://music.youtube.com/..." value="{{ streaming.get('youtubemusic','') }}">
+
             <label>Apple Music</label>
             <input id="applemusic" type="text" placeholder="https://www.apple.com/apple-music/..." value="{{ streaming.get('applemusic','') }}">
+
             <label>AudioMack</label>
             <input id="audiomack" type="text" placeholder="https://www.audiomack.com/..." value="{{ streaming.get('audiomack','') }}">
+
             <label>Bandcamp</label>
             <input id="bandcamp" type="text" placeholder="https://bandcamp.com/..." value="{{ streaming.get('bandcamp','') }}">
+
             <label>Amazon Music</label>
             <input id="amazon" type="text" placeholder="https://music.amazon.com/..." value="{{ streaming.get('amazon','') }}">
 
+            <label>ITunes</label>
+            <input id="itunes" type="text" placeholder="https://itunes.com/..." value="{{ streaming.get('itunes','') }}">
+
+            <label>Google Play music</label>
+            <input id="gpm" type="text" placeholder="https://google.music.play.com/..." value="{{ streaming.get('gpm','') }}">
+
             <label>Instagram</label>
-            <input id="insta" type="text" placeholder="https://instagram.com/..." value="{{ streaming.get('instagram','') }}">
+            <input id="instagram" type="text" placeholder="https://instagram.com/..." value="{{ streaming.get('instagram','') }}">
 
             <label>Tiktok</label>
             <input id="tiktok" type="text" placeholder="https://tiktok.com/..." value="{{ streaming.get('tiktok','') }}">
@@ -52,12 +65,11 @@
             <label>Youtube</label>
             <input id="youtube" type="text" placeholder="https://youtube.com/..." value="{{ streaming.get('youtube','') }}">
 
-            <label>Paytrion</label>
-            <input id="Paytrion" type="text" placeholder="https://paytrion.com/..." value="{{ streaming.get('paytrion','') }}">
+            <label>Thread</label>
+            <input id="thread" type="text" placeholder="https://thread.com/..." value="{{ streaming.get('thread','') }}">
 
             <label>Twitter/X</label>
             <input id="x" type="text" placeholder="https://x.com/..." value="{{ streaming.get('x','') }}">
-
 
 
             <div style="margin-top:.6rem"><button class="save-btn" onclick="saveStreaming()">Save Streaming Links</button></div>

@@ -145,7 +145,6 @@ def totp_confirm():
 @login_required
 def admin_dashboard():
     from app import db
-    # from flask import g
     skills = Skills.query.all()
     logging.debug([s.skill for s in skills])
     return render_template("admin_dashboard.html", skills=skills)

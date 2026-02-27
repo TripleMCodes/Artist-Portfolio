@@ -1,14 +1,37 @@
 function notify(msg){ alert(msg); }
 
+d = {
+    "spotify": "https://spotify.com",
+    "soundcloud": "https://on.soundcloud.com/vytY8liCK5auv86bYK",
+    "youtubemusic": "https://www.youtube.com/@ConnorOdyssey", "applemusic": "https://applemusic.com/@vi",
+    "audiomack": "https://audiomack.com/@vickykae",
+    "bandcamp": "https://bandcamp.com/@vickykae",
+    "amazon": "https://amazon.com/@vickykae",
+    "itunes": "https://itunes.com/@vickykae",
+    "gpm": "https://google.play.music.com/@vickykae", "instagram": "https://instagram.com/@vickykae",
+    "thread": "https://thread.com/@vickykae",
+    "tiktok": "https://tiktok.com/@vickykae",
+    "facebook": "https://facebook.com/@vickykae",
+    "x": "https://x.com/@vickykae"
+}
+
 function saveStreaming(){
     const payload = { streaming: {
         spotify: document.getElementById('spotify').value,
         soundcloud: document.getElementById('soundcloud').value,
         youtubemusic: document.getElementById('youtubemusic').value,
+        youtube: document.getElementById('youtube').value,
         applemusic: document.getElementById('applemusic').value,
         audiomack: document.getElementById('audiomack').value,
         bandcamp: document.getElementById('bandcamp').value,
-        bandcamp: document.getElementById('amazon').value
+        amazon: document.getElementById('amazon').value,
+        itunes: document.getElementById('itunes').value,
+        gpm: document.getElementById('gpm').value,
+        instagram: document.getElementById('instagram').value,
+        thread: document.getElementById('thread').value,
+        tiktok: document.getElementById('tiktok').value,
+        facebook: document.getElementById('facebook').value,
+        x: document.getElementById('x').value,
     }};
     fetch('/update streaming links', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
     .then(r=>r.json()).then(j=>notify(j.message)).catch(()=>notify('Error'))

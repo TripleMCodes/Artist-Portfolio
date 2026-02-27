@@ -6,17 +6,78 @@
 :root{
   --gold: #B78628;
   --gold-soft: rgba(183,134,40,0.18);
+
   --ink: #141414;
   --muted: rgba(20,20,20,0.68);
+
   --cream: #f6f0e3;
   --paper: #ffffff;
+
   --aura: rgba(132, 201, 240, 0.28);
   --aura2: rgba(132, 201, 240, 0.16);
+
   --line: rgba(0,0,0,0.06);
-  --shadow: rgba(0,0,0,0.10);
+
+  /* Shared “system” tokens */
+  --radius-lg: 22px;
+  --radius-md: 18px;
+  --blur: 12px;
+
+  --shadow-md: 0 14px 44px rgba(0,0,0,0.08);
+  --shadow-lg: 0 18px 64px rgba(0,0,0,0.08);
+  --shadow-xl: 0 22px 70px rgba(0,0,0,0.10);
+
+  --ease: 0.18s ease;
 }
 
-/* About hero */
+/* -------------------------
+   Utilities (glass + divider)
+------------------------- */
+.glass-card{
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.glass-sheen::before{
+  content:"";
+  position:absolute;
+  inset:-30%;
+  background: radial-gradient(circle at 20% 20%, rgba(183,134,40,0.12), transparent 55%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.section-title{
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+}
+
+.section-title::after{
+  content:"";
+  display:block;
+  width: 88px;
+  height: 2px;
+  margin: 0.85rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.9;
+}
+
+/* Accessible focus */
+:where(a, button, [role="button"], input, textarea, select):focus-visible{
+  outline: 3px solid rgba(132,201,240,0.55);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* -------------------------
+   About hero
+------------------------- */
 .about-hero{
   position: relative;
   z-index: 2;
@@ -60,7 +121,6 @@
   color: var(--ink);
 }
 
-/* gold divider vibe */
 .about-hero h1::after{
   content:"";
   display:block;
@@ -74,7 +134,7 @@
 .about-hero p{
   max-width: 760px;
   font-size: 1.02rem;
-  color: rgba(20,20,20,0.68);
+  color: var(--muted);
   line-height: 1.8;
 }
 
@@ -91,6 +151,27 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* If you have a section heading inside bio-section */
+.bio-section > h2{
+  text-align: center;
+  margin: 0 auto 2.5rem;
+}
+.bio-section > h2{ /* optional: only if you want same style as other sections */
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+}
+.bio-section > h2::after{
+  content:"";
+  display:block;
+  width: 88px;
+  height: 2px;
+  margin: 0.85rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.9;
+}
+
 .bio-grid{
   display: grid;
   grid-template-columns: 1fr 1.35fr;
@@ -101,9 +182,15 @@
   position: relative;
 }
 
-/* alternate layout */
-.bio-grid:nth-child(even){
+/* ✅ Fix: alternate layout should target “every other .bio-grid” in the section */
+.bio-section .bio-grid:nth-of-type(even){
   grid-template-columns: 1.35fr 1fr;
+}
+.bio-section .bio-grid:nth-of-type(even) .bio-visual{
+  order: 2;
+}
+.bio-section .bio-grid:nth-of-type(even) .bio-text{
+  order: 1;
 }
 
 /* visual: no neon glow, more “seal” */
@@ -135,15 +222,17 @@
 
 /* text card like homepage cards */
 .bio-text{
-  background: rgba(255,255,255,0.78);
-  backdrop-filter: blur(12px);
-  padding: 2.2rem;
-  border-radius: 22px;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 18px 64px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
   overflow: hidden;
+  padding: 2.2rem;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+
+  background: rgba(255,255,255,0.78);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
 }
 
 /* subtle gold corner sheen */
@@ -168,6 +257,7 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--ink);
+  text-align: left;
 }
 
 .bio-text h2::after{
@@ -183,7 +273,7 @@
 .bio-text p{
   font-size: 1.02rem;
   line-height: 1.8;
-  color: rgba(20,20,20,0.68);
+  color: var(--muted);
   margin-bottom: 1rem;
 }
 
@@ -217,14 +307,13 @@
 }
 
 .timeline h2{
-  font-size: 1.35rem;
   text-align: center;
   margin-bottom: 2.5rem;
+  font-size: 1.35rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--ink);
 }
-
 .timeline h2::after{
   content:"";
   display:block;
@@ -264,21 +353,24 @@
 }
 
 .timeline-item p{
-  background: rgba(255,255,255,0.80);
+  position: relative;
   padding: 1.3rem 1.4rem;
-  border-radius: 18px;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 14px 44px rgba(0,0,0,0.08);
   line-height: 1.75;
-  color: rgba(20,20,20,0.68);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  backdrop-filter: blur(12px);
+  color: var(--muted);
+
+  background: rgba(255,255,255,0.80);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
 }
 
 .timeline-item:hover p{
   transform: translateX(4px);
   border-color: rgba(183,134,40,0.24);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.10);
+  box-shadow: var(--shadow-xl);
 }
 
 /* =========================
@@ -293,16 +385,18 @@
 }
 
 .expertise-card{
-  background: rgba(255,255,255,0.82);
-  border: 1px solid rgba(183,134,40,0.18);
-  border-radius: 22px;
-  padding: 1.8rem;
-  text-align: center;
   position: relative;
   overflow: hidden;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  box-shadow: 0 14px 44px rgba(0,0,0,0.08);
-  backdrop-filter: blur(12px);
+  padding: 1.8rem;
+  text-align: center;
+
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(183,134,40,0.18);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
 }
 
 .expertise-card::before{
@@ -317,7 +411,7 @@
 .expertise-card:hover{
   transform: translateY(-3px);
   border-color: rgba(183,134,40,0.35);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.10);
+  box-shadow: var(--shadow-xl);
 }
 
 .expertise-icon{
@@ -338,7 +432,7 @@
 }
 
 .expertise-desc{
-  color: rgba(20,20,20,0.68);
+  color: var(--muted);
   font-size: 0.95rem;
   line-height: 1.7;
 }
@@ -381,7 +475,7 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   border-radius: 999px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  transition: transform var(--ease), box-shadow var(--ease), background var(--ease);
   box-shadow: 0 12px 34px rgba(0,0,0,0.10);
 }
 
@@ -393,14 +487,16 @@
 
 .carousel-slide{
   display: none;
-  padding: 2rem;
-  background: rgba(255,255,255,0.82);
-  border-radius: 22px;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 18px 64px rgba(0,0,0,0.08);
   position: relative;
-  backdrop-filter: blur(12px);
   max-width: 740px;
+  padding: 2rem;
+
+  background: rgba(255,255,255,0.82);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
 }
 
 .carousel-slide.active{
@@ -440,6 +536,33 @@
 }
 
 /* =========================
+   Backdrop-filter fallback
+   (when unsupported, keep it clean)
+========================= */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .bio-text,
+  .timeline-item p,
+  .expertise-card,
+  .carousel-slide{
+    background: rgba(255,255,255,0.94);
+  }
+}
+
+/* =========================
+   Reduced motion (accessibility)
+========================= */
+@media (prefers-reduced-motion: reduce){
+  .bio-visual{ animation: none; }
+  .carousel-slide.active{ animation: none; }
+  .bio-text,
+  .timeline-item p,
+  .expertise-card,
+  .carousel-btn{
+    transition: none;
+  }
+}
+
+/* =========================
    NAV MOBILE (match homepage)
 ========================= */
 @media (max-width: 768px){
@@ -464,6 +587,12 @@
   .bio-grid{
     grid-template-columns: 1fr;
     gap: 1.4rem;
+  }
+
+  /* when stacked, ordering doesn’t need alternating */
+  .bio-section .bio-grid:nth-of-type(even) .bio-visual,
+  .bio-section .bio-grid:nth-of-type(even) .bio-text{
+    order: initial;
   }
 
   .bio-visual{ font-size: 4.2rem; }

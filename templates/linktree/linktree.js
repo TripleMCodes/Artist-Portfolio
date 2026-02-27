@@ -2,7 +2,7 @@
 (function(){
   const btn = document.getElementById('copyEmail');
   const copied = document.getElementById('copied');
-  const emailFallback = 'hello@xarya.com';
+  const emailFallback = 'vickey@gmail.com';
 
   if (btn) {
     btn.addEventListener('click', async () => {
@@ -60,19 +60,33 @@ if (hamburger && navLinks) {
   if (slides.length === 0) return;
 
   let index = 0;
+  let isTransitioning = false;
 
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-  const getStep = () => {
-    // Use offsets so it works even if card width changes responsively
-    if (slides.length < 2) return slides[0].getBoundingClientRect().width;
-    return slides[1].offsetLeft - slides[0].offsetLeft;
+  const getGap = () => {
+    const style = window.getComputedStyle(track);
+    const gap = style.columnGap || style.gap || "0";
+    return parseFloat(gap);
   };
 
-  const setIndexFromScroll = () => {
-    const step = Math.max(getStep(), 1);
-    const i = Math.round(viewport.scrollLeft / step);
-    index = clamp(i, 0, slides.length - 1);
+  const getSlideWidth = () => {
+    if (!slides[0]) return 0;
+    return slides[0].offsetWidth || 260;
+  };
+
+  const getScrollLeft = (i) => {
+    const gap = getGap();
+    const slideWidth = getSlideWidth();
+    return i * (slideWidth + gap);
+  };
+
+  const getCurrentIndex = () => {
+    const gap = getGap();
+    const slideWidth = getSlideWidth();
+    const step = slideWidth + gap;
+    if (step === 0) return 0;
+    return Math.round(viewport.scrollLeft / step);
   };
 
   const updateUI = () => {
@@ -80,17 +94,22 @@ if (hamburger && navLinks) {
     btnNext && (btnNext.disabled = index === slides.length - 1);
 
     if (dotsWrap) {
-      const dots = Array.from(dotsWrap.querySelectorAll("button.dot"));
-      dots.forEach((d, di) => d.setAttribute("aria-current", di === index ? "true" : "false"));
+      const dots = dotsWrap.querySelectorAll("button");
+      dots.forEach((d, di) => {
+        d.setAttribute("aria-current", di === index ? "true" : "false");
+      });
     }
   };
 
   const goTo = (i, smooth = true) => {
     index = clamp(i, 0, slides.length - 1);
+    const targetScroll = getScrollLeft(index);
+    
     viewport.scrollTo({
-      left: slides[index].offsetLeft,
+      left: targetScroll,
       behavior: smooth ? "smooth" : "auto",
     });
+    
     updateUI();
   };
 
@@ -123,9 +142,9 @@ if (hamburger && navLinks) {
   viewport.addEventListener("scroll", () => {
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
-      setIndexFromScroll();
+      index = getCurrentIndex();
       updateUI();
-    }, 80);
+    }, 100);
   });
 
   // Touch swipe snap (nice on mobile)
@@ -147,11 +166,14 @@ if (hamburger && navLinks) {
 
   viewport.addEventListener("touchend", () => {
     touching = false;
-    setIndexFromScroll();
-    goTo(index); // snap
+    index = getCurrentIndex();
+    goTo(index, false); // snap to nearest
   });
 
-  window.addEventListener("resize", () => goTo(index, false));
+  window.addEventListener("resize", () => {
+    index = getCurrentIndex();
+    goTo(index, false);
+  });
 
   // Init
   goTo(0, false);

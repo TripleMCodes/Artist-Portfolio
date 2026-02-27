@@ -406,13 +406,13 @@ nav{
 ========================= */
 .lt-small{
   margin-top: 1.4rem;
-  color: rgba(20,20,20,0.56);
+  color: papayawhip;
   font-size: 0.9rem;
   line-height: 1.6;
 }
 
 .lt-small a{
-  color: rgba(20,20,20,0.72);
+ color: papayawhip;
   font-weight: 900;
   text-decoration: none;
   border-bottom: 1px solid rgba(183,134,40,0.55);
