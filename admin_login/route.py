@@ -1010,7 +1010,6 @@ def delete_single():
 def upload_gallery_image():
 
     from app import db
-    # from flask import g
     user = User.query.first()
 
     images_count = Gallery.query.filter_by(
@@ -1074,7 +1073,6 @@ def delete_gallery_item(item_id):
 @login_required
 def add_gallery_video():
     from app import db
-    # from flask import g
     data = request.get_json()
     url = data.get('url')
     title = data.get('title', '')

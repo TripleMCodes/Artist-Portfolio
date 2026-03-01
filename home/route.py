@@ -35,19 +35,14 @@ def index():
     name = user.name.upper() or ""
     about = user.short_about if user else ""
 
-    # 3. Scope Visuals (Profile & Banner)
     profile_pic_obj = ProfileImg.query.first()
-    # Defaulting to None or a placeholder if images aren't set
     profile_url = profile_pic_obj.profile_picture if profile_pic_obj else None
     banner_url = profile_pic_obj.banner_img if profile_pic_obj else None
 
-    # 4. Scope Skills (Optimized query)
-    # Filter by artist_id before selecting the skill attribute
+    
     skills_query = db.session.query(Skills.skill).all()
     skills = [s[0] for s in skills_query]
     
-    # 5. Scope Blog Posts (Latest 3)
-    # Using the composite index (artist_id, date)
     blogs = Blog.query.order_by(Blog.date.desc()).limit(3).all()
     if not blogs:
         blogs = []
@@ -60,7 +55,6 @@ def index():
             'content': json.loads(section.content) if section.content else None
         }
 
-    # 7. Scope Discography and Media variables
     eps = media_data.get('eps', [])
     featured_playlist = media_data.get('featured_playlist', '')
     singles = Singles.query.all()
