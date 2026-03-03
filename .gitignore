@@ -1,4 +1,8 @@
-./database
-admin_login\gen_hash.py
-seeds
-portfolio.db
+
+file.json
+instance/
+gen_hash.py
+backups/
+migrations/
+services/
+portfolio/

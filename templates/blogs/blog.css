@@ -278,9 +278,7 @@ main{
 }
 
 /* =========================
-   MOBILE NAV (match homepage)
-   (Your nav styles likely come from global CSS;
-    these keep the blog page consistent if needed.)
+   MOBILE NAV 
 ========================= */
 .h-menu{
   display:none;
@@ -319,6 +317,27 @@ main{
 
   .archive-grid{
     grid-template-columns: 1fr;
+  }
+
+  .handwrite{
+    overflow-x: auto;           
+    overflow-y: hidden;         
+    white-space: unset;
+  }
+  .handwrite::-webkit-scrollbar {
+    height: 8px;
+  }
+  .handwrite::-webkit-scrollbar-track {
+    background: var(--cream);
+  }
+  .handwrite::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+  }
+
+  .handwrite {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) var(--cream);
   }
 }
 

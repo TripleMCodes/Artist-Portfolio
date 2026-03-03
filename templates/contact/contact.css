@@ -36,7 +36,7 @@
     linear-gradient(180deg, rgba(255,255,255,0.96), rgba(246,240,227,0.55));
   border-bottom: 1px solid var(--line);
   border-radius: 26px;
-  margin-top: 2rem;
+  margin-top: -2rem;
   position: relative;
   overflow: hidden;
 }
