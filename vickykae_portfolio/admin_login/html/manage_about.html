@@ -175,35 +175,6 @@
             </div>
         </section>
 
-
-
-        
-
-        <!-- <div class="section-editor">
-            <h3>Testimonials Section</h3>
-            <input type="text" id="testimonials-title" placeholder="Section Title" value="{{ sections.title or 'What Artists Say' }}">
-            <label>Testimonial Slides:</label>
-            <div id="testimonials-slides">
-                {% if sections.testimonials and sections.testimonials.get('content', {}).get('slides') %}
-                {% for slide in sections.get('testimonials').get('content', {}).get('slides') %}
-                <div class="testimonial-slide">
-                    <textarea class="quote" placeholder="Quote">{{ slide.quote }}</textarea>
-                    <input type="text" class="author" placeholder="Author" value="{{ slide.author }}">
-                    <button class="save-btn" onclick="removeItem(this)">Remove</button>
-                </div>
-                {% endfor %}
-                {% else %}
-                <div class="testimonial-slide">
-                    <textarea class="quote" placeholder="Quote">"Xarya took my rough ideas and transformed them into verses that felt like they came straight from my subconscious. Technical mastery with genuine artistry."</textarea>
-                    <input type="text" class="author" placeholder="Author" value="Artist A">
-                    <button class="save-btn" onclick="removeItem(this)">Remove</button>
-                </div>
-                {% endif %}
-            </div>
-            <button class="save-btn" onclick="addTestimonialSlide()">Add Slide</button>
-            <button class="save-btn" onclick="saveSection('testimonials')">Save Testimonials</button>
-        </div> -->
-
         <section class="section-editor" id="testimonials-editor">
             <div class="editor-header">
                 <h3>Testimonials</h3>
@@ -244,7 +215,7 @@
                 </article>
                 {% endfor %}
 
-                {% if testimonials|length == 0 %}
+                {% if not testimonials %}
                 <p style="text-align:center;opacity:0.7;">No testimonials yet.</p>
                 {% endif %}
             </div>
