@@ -5,3 +5,10 @@ backups/
 migrations/
 services/
 portfolio/
+portfolio.db
+portfolio.db-journal
+__pycache__/
+*.pyc
+images/
+migrations/
+venv/
