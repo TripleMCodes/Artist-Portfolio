@@ -10,5 +10,4 @@ portfolio.db-journal
 __pycache__/
 *.pyc
 images/
-migrations/
 venv/
