@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request
+from flask import render_template, Blueprint, request, Client
 import logging
 from ..models import Blog, User
 
@@ -17,6 +17,9 @@ def index():
     # URL params: /blog?page=2&per_page=9
     page = request.args.get("page", default=1, type=int)
     per_page = request.args.get("per_page", default=2, type=int)
+
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
 
     # guardrails (so someone can't request per_page=5000)
     per_page = max(1, min(per_page, 2))
@@ -39,5 +42,6 @@ def index():
         blogs=blogs,
         pagination=pagination,
         per_page=per_page,
-        name=name
+        name=name,
+        ga_id=ga_id
     )

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 import logging
 logging.basicConfig(level=logging.DEBUG)
-from ..models import Message, User, Admin
+from ..models import Message, User, Admin, Client
 from ..app import db
 
 contct = Blueprint(
@@ -45,4 +45,6 @@ def contact_route():
     email = admin.email if admin else None
     user = User.query.first()
     name = user.name.upper() if user else ''
-    return render_template('contact.html', name=name, email=email)
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
+    return render_template('contact.html', name=name, email=email, ga_id=ga_id)

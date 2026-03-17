@@ -1,6 +1,6 @@
 from flask import render_template, Blueprint
 import logging
-from ..models import User
+from ..models import User, Client
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -14,9 +14,11 @@ terms = Blueprint(
 
 @terms.route('/terms')
 def terms_route():
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
     # Refactor: Filter by the current tenant (artist_id)
     user = User.query.first()
     
     name = user.name.upper()
     
-    return render_template('terms.html', name=name)
+    return render_template('terms.html', name=name, ga_id=ga_id)

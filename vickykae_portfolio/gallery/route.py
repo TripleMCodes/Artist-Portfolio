@@ -1,5 +1,5 @@
 from flask import render_template, Blueprint
-from ..models import Gallery, User
+from ..models import Gallery, User, Client
 from urllib.parse import urlparse, parse_qs
 
 gallery = Blueprint(
@@ -15,7 +15,9 @@ def gallery_route():
     user = User.query.first()
     name = user.name.upper()
 
-    
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
+
     gallery_items = Gallery.query.order_by(Gallery.id).all()
 
     for item in gallery_items:
@@ -37,4 +39,4 @@ def gallery_route():
             else:
                 item.video_id = url  # fallback
                 
-    return render_template('gallery.html', gallery_items=gallery_items, name=name)
+    return render_template('gallery.html', gallery_items=gallery_items, name=name, ga_id=ga_id)

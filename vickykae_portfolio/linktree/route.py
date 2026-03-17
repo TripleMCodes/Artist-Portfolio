@@ -3,7 +3,7 @@ import os
 
 from flask import render_template, Blueprint
 import logging
-from ..models import User, ProfileImg,  MediaConfig
+from ..models import User, ProfileImg,  MediaConfig, Client
 logging.basicConfig(level=logging.DEBUG)
 
 linktree = Blueprint(
@@ -22,6 +22,9 @@ def linktree_route():
     name = user.name.upper()
     links = LinktreeLink.query.order_by(LinktreeLink.order).all()
     config = LinktreeConfig.query.first()
+
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
 
 
     media_data = {}
@@ -62,4 +65,4 @@ def linktree_route():
     profile_pic_obj = ProfileImg.query.first()
     banner_url = profile_pic_obj.banner_img if profile_pic_obj else None
     
-    return render_template('linktree.html', links=links, config=config, name=name, profile_pic=profile_pic.profile_picture, banner_pic=banner_url, streaming=streaming)
+    return render_template('linktree.html', links=links, config=config, name=name, profile_pic=profile_pic.profile_picture, banner_pic=banner_url, streaming=streaming, ga_id=ga_id)

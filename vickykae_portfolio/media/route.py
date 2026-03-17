@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 import logging
 import os, json
-from ..models import MediaConfig, Singles, Albums, User
+from ..models import MediaConfig, Singles, Albums, User, Client
 
 media = Blueprint(
     'media',
@@ -13,6 +13,9 @@ media = Blueprint(
 
 @media.route('/media')
 def media_route():
+
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
     media_data = {}
     try:
         entries = MediaConfig.query.all()
@@ -61,5 +64,6 @@ def media_route():
         singles=singles, 
         albums=albums, 
         user=user, 
-        name=name
+        name=name,
+        ga_id=ga_id
     )

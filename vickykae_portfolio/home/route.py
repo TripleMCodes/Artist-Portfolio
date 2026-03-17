@@ -1,7 +1,7 @@
 import json
 from flask import render_template, request, redirect, url_for, flash, Blueprint
 from ..models import Albums, ProfileImg, Singles, User, Skills, MediaConfig
-from ..models import Blog, AboutSection
+from ..models import Blog, AboutSection, Client
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
@@ -34,6 +34,9 @@ def index():
     user = User.query.first()
     name = user.name.upper() or ""
     about = user.short_about if user else ""
+
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
 
     profile_pic_obj = ProfileImg.query.first()
     profile_url = profile_pic_obj.profile_picture if profile_pic_obj else None
@@ -73,5 +76,6 @@ def index():
         featured_playlist=featured_playlist, 
         albums=albums, 
         singles=singles, 
-        sections=section_data
+        sections=section_data,
+        ga_id=ga_id
     )

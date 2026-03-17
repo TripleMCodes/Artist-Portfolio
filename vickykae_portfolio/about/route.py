@@ -1,7 +1,7 @@
 from flask import render_template, Blueprint, redirect
 from ..models import User
 import logging
-from ..models import AboutSection, Expertise, Testimonials, HeroAbout, FoundationAbout, Journey
+from ..models import AboutSection, Expertise, Testimonials, HeroAbout, FoundationAbout, Journey,Client
 import json
 
 logging.basicConfig(level=logging.DEBUG)
@@ -19,6 +19,9 @@ def about_route():
     user = User.query.first()
     
     name = user.name.title() if user else "Artist"
+
+    ga_id = Client.query.filter_by(name='vickykae').first()
+    ga_id = ga_id.value if ga_id else None
     
     sections = AboutSection.query.order_by(AboutSection.order).all()
     
@@ -37,4 +40,4 @@ def about_route():
     testimonials = Testimonials.query.all()
     journey_items = Journey.query.order_by(Journey.year.asc()).all()
 
-    return render_template('about.html', sections=section_data, name=name, expertise=expertise, testimonials=testimonials, hero=hero, foundation=foundation, journey_items=journey_items)
+    return render_template('about.html', sections=section_data, name=name, expertise=expertise, testimonials=testimonials, hero=hero, foundation=foundation, journey_items=journey_items, ga_id=ga_id)
