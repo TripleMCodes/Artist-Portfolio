@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from ..database.login import AdminLogin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required
-from ..models import Admin, User, Skills, Blog, ProfileImg, Service, FAQ, Message, Gallery, AboutSection, MediaConfig, Event, LinktreeLink, LinktreeConfig, Singles, Albums, Expertise, HeroAbout, Testimonials, FoundationAbout, Journey
+from ..models import Admin, User, Skills, Blog, ProfileImg, Service, FAQ, Message, Gallery, AboutSection, MediaConfig, Event, LinktreeLink, LinktreeConfig, Singles, Albums, Expertise, HeroAbout, Testimonials, FoundationAbout, Journey, Client
 from werkzeug.utils import secure_filename
 import os
 from datetime import datetime
@@ -149,6 +149,68 @@ def admin_dashboard():
     skills = Skills.query.all()
     logging.debug([s.skill for s in skills])
     return render_template("admin_dashboard.html", skills=skills)
+
+@admin.route('/save-update-ga4', methods=['POST'])
+@login_required
+def save_update_ga4():
+    from ..app import db
+    
+    data = request.get_json() or request.form
+
+    name = (data.get("name") or "").strip()
+    ga4_measurement_id = (data.get("ga4_measurement_id") or "").strip()
+
+    if not name:
+        return jsonify({
+            "success": False,
+            "message": "Name is required."
+        }), 400
+
+    if not ga4_measurement_id:
+        return jsonify({
+            "success": False,
+            "message": "GA4 Measurement ID is required."
+        }), 400
+
+    if not ga4_measurement_id.startswith("G-"):
+        return jsonify({
+            "success": False,
+            "message": "Invalid GA4 Measurement ID. It should start with 'G-'."
+        }), 400
+
+    try:
+        client = Client.query.filter_by(name=name).first()
+
+        if client:
+            client.ga4_measurement_id = ga4_measurement_id
+            message = "GA4 Measurement ID updated successfully."
+        else:
+            client = Client(
+                name=name,
+                ga4_measurement_id=ga4_measurement_id
+            )
+            db.session.add(client)
+            message = "GA4 Measurement ID saved successfully."
+
+        db.session.commit()
+
+        return jsonify({
+            "success": True,
+            "message": message,
+            "client": {
+                "id": client.id,
+                "name": client.name,
+                "ga4_measurement_id": client.ga4_measurement_id
+            }
+        }), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            "success": False,
+            "message": "An error occurred while saving GA4 data.",
+            "error": str(e)
+        }), 500
 
 @admin.route('/update name', methods=['POST'])
 @login_required

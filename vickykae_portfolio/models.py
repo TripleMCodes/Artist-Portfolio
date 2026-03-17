@@ -205,7 +205,16 @@ class LinktreeLink(db.Model):
     url = db.Column(db.Text, nullable=False)
     is_secondary = db.Column(db.Boolean, default=False)
     order = db.Column(db.Integer, nullable=False, default=0)
-    
+
+
+#for ga4 analytics
+class Client(db.Model):
+    __tablename__ = "clients"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True)
+
+    ga4_measurement_id = db.Column(db.String(20), nullable=True)
 
 class LinktreeConfig(db.Model):
     __tablename__ = 'linktree_config'

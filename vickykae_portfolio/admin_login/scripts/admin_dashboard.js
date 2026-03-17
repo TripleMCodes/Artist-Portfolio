@@ -266,3 +266,51 @@ function deleteSkill(id) {
         });
     }
 }
+
+
+
+const ga4Input = document.getElementById("ga4-id");
+const ga4SaveBtn = document.getElementById("ga4-save-btn");
+const ga4Message = document.getElementById("ga4-message");
+
+if (ga4SaveBtn) {
+    ga4SaveBtn.addEventListener("click", async () => {
+        const ga4MeasurementId = ga4Input.value.trim();
+
+        ga4Message.textContent = "";
+        ga4Message.style.color = "";
+
+        if (!ga4MeasurementId) {
+            ga4Message.textContent = "Please enter a GA4 Measurement ID.";
+            ga4Message.style.color = "red";
+            return;
+        }
+
+        try {
+            const response = await fetch("/save-update-ga4", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: "vickykae",
+                    ga4_measurement_id: ga4MeasurementId
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                ga4Message.textContent = data.message || "GA4 Measurement ID saved successfully.";
+                ga4Message.style.color = "green";
+            } else {
+                ga4Message.textContent = data.message || "Failed to save GA4 Measurement ID.";
+                ga4Message.style.color = "red";
+            }
+        } catch (error) {
+            console.error("GA4 save/update error:", error);
+            ga4Message.textContent = "Something went wrong while saving the GA4 ID.";
+            ga4Message.style.color = "red";
+        }
+    });
+}

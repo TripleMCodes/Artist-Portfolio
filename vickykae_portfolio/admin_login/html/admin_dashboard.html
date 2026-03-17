@@ -61,6 +61,33 @@
             <button id="password-btn" class="save-btn">Update password</button>
         </div>
 
+    <div class="admin-section">
+        <h3>Google Analytics</h3>
+        <input
+            id="ga4-id"
+            type="text"
+            placeholder="Enter GA4 Measurement ID (e.g. G-ABCDEFG123)"
+            value="{{ client.ga4_measurement_id if client and client.ga4_measurement_id else '' }}"
+        >
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+            <button id="ga4-save-btn" class="save-btn">Save / Update GA4</button>
+            
+            <a
+                id="ga4-view-link"
+                href="https://analytics.google.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="save-btn"
+                style="text-decoration: none; display: inline-block;"
+            >
+                View Analytics
+            </a>
+    </div>
+
+    <p id="ga4-message" style="margin-top: 1rem; font-size: 0.95rem;"></p>
+    </div>
+
         <!-- Edit Skills Section -->
         <div class="admin-section">
             <h3>Edit Skills</h3>
