@@ -1,6 +1,6 @@
-from flask import render_template, Blueprint, request, Client
+from flask import render_template, Blueprint, request
 import logging
-from ..models import Blog, User
+from ..models import Blog, User, Client
 
 logging.basicConfig(level=logging.DEBUG)
 
