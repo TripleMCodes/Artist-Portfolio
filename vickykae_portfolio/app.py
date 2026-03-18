@@ -94,7 +94,7 @@ def _register_blueprints(app: Flask) -> None:
     from .blog.route import all_blogs
     from .contact.route import contct
     from .privacy.route import privacy
-    from .services.route import service
+    # from .services.route import service
     from .linktree.route import linktree
     from .events.route import events
     from .media.route import media
@@ -109,7 +109,6 @@ def _register_blueprints(app: Flask) -> None:
         terms,
         contct,
         privacy,
-        service,
         all_blogs,
         linktree,
         events,
