@@ -73,6 +73,7 @@ def _configure_database(app: Flask) -> None:
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
 
+    
 
 def _init_auth(app: Flask) -> None:
     login_manager = LoginManager()
