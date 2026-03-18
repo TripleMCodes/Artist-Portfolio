@@ -2,7 +2,6 @@ file.json
 instance/
 gen_hash.py
 backups/
-migrations/
 services/
 portfolio/
 portfolio.db
