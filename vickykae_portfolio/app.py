@@ -69,8 +69,8 @@ def _configure_database(app: Flask) -> None:
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
         return
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/portfolio.db'
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:1234@localhost:5432/vickykae"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:1234@localhost:5432/vickykae"
 
 
 def _init_auth(app: Flask) -> None:
