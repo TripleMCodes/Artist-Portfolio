@@ -68,6 +68,7 @@ def _configure_database(app: Flask) -> None:
     if database_url:
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
         print("DB not present")
+        print(database_url)
         return
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
