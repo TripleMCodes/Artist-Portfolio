@@ -67,9 +67,10 @@ def _configure_database(app: Flask) -> None:
     database_url = _normalize_database_url(os.getenv("DATABASE_URL"))
     if database_url:
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+        print("DB not present")
         return
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
+    # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://postgres:1234@localhost:5432/vickykae"
 
 
