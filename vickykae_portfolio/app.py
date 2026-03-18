@@ -67,12 +67,11 @@ def _configure_database(app: Flask) -> None:
     database_url = _normalize_database_url(os.getenv("DATABASE_URL"))
     if database_url:
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-        print("DB not present")
+        # print("DB not present")
         print(database_url)
         return
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:02122020%402001%24nkosi@db.ymlpfgigaivivlrpewpj.supabase.co:5432/postgres?sslmode=require"
 
 
 def _init_auth(app: Flask) -> None:
