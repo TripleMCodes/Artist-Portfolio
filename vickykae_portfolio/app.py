@@ -145,9 +145,9 @@ def create_app() -> Flask:
     db.init_app(app)
     Migrate(app, db)
 
-    from .seed import seed_all 
-    with app.app_context():
-        seed_all(db)
+    # from .seed import seed_all 
+    # with app.app_context():
+    #     seed_all(db)
     # Auth
     _init_auth(app)
 
