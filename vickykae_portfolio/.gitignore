@@ -1,6 +1,7 @@
 file.json
 instance/
 gen_hash.py
+.env
 backups/
 services/
 portfolio/

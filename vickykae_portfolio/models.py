@@ -45,12 +45,15 @@ class Skills(db.Model, UserMixin):
     skill = db.Column(db.Text, nullable=False)
 
 
-class ProfileImg(db.Model, UserMixin):
+class ProfileImg(db.Model):
     __tablename__ = 'ProfileImg'
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     profile_picture = db.Column(db.Text, nullable=True)
+    profile_picture_url = db.Column(db.Text, nullable=True)
     banner_img = db.Column(db.Text, nullable=True)
+    banner_picture_url = db.Column(db.Text, nullable=True)
+
 
 class Blog(db.Model):
     __tablename__ = 'blog'
@@ -101,8 +104,9 @@ class Gallery(db.Model):
     __tablename__ = 'gallery'
 
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    type = db.Column(db.String(10), nullable=False)  # 'image' or 'video'
-    url = db.Column(db.Text, nullable=False)
+    type = db.Column(db.String(10), nullable=False)
+    url = db.Column(db.Text, nullable=False)        # public_id
+    cloud_url = db.Column(db.Text, nullable=False)  # actual URL
     title = db.Column(db.Text, nullable=True)
 
 

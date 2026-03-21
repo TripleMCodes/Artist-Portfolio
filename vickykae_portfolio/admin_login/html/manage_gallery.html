@@ -28,12 +28,29 @@
 
         <div class="gallery-section">
             <h3>Current Images ({{ images|length }}/5)</h3>
+
             <div class="gallery-grid">
                 {% for image in images %}
                 <div class="gallery-item">
-                    <img src="{{ url_for('gallery.static', filename='img/' + image.url) }}" alt="{{ image.title }}">
-                    <div class="title">{{ image.title or 'Untitled' }}</div>
-                    <button class="delete-btn" onclick="deleteItem('{{ image.id }}')">×</button>
+                    
+                    <img 
+                        src="{{ image.cloud_url }}" 
+                        alt="{{ image.title or 'Gallery image' }}"
+                        loading="lazy"
+                    >
+
+                    <div class="title">
+                        {{ image.title or 'Untitled' }}
+                    </div>
+
+                    <button 
+                        class="delete-btn" 
+                        onclick="deleteItem('{{ image.id }}')"
+                        aria-label="Delete image"
+                    >
+                        ×
+                    </button>
+
                 </div>
                 {% endfor %}
             </div>

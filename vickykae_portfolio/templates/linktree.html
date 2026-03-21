@@ -9,8 +9,8 @@
 </head>
 <body>
 
-  {% if banner_pic %}
-    <img src="{{ url_for('home.static', filename='img/banner picture/' + banner_pic) }}" class="banner-overlay" alt="banner picture">
+  {% if banner_picture_url %}
+    <img  src="{{ banner_picture_url }}" class="banner-overlay" alt="banner picture">
   {% endif %}
 
   <nav>
@@ -21,8 +21,8 @@
   </nav>
 
   <div class="lt-wrap">
-    {% if profile_pic or "" %}
-      <img src="{{ url_for('home.static', filename='img/profile picture/' + profile_pic) }}" class="profile-pic" alt="profile picture">
+    {% if profile_picture_url or "" %}
+      <img  src="{{ profile_picture_url }}" class="profile-pic" alt="profile picture">
     {% else %}
       <div class="lt-avatar">{{ config.avatar }}</div>
     {% endif %}

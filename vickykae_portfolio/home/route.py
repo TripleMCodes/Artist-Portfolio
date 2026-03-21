@@ -39,8 +39,8 @@ def index():
     ga_id = ga_id.value if ga_id else None
 
     profile_pic_obj = ProfileImg.query.first()
-    profile_url = profile_pic_obj.profile_picture if profile_pic_obj else None
-    banner_url = profile_pic_obj.banner_img if profile_pic_obj else None
+    profile_picture_url = profile_pic_obj.profile_picture_url if profile_pic_obj else None
+    banner_picture_url = profile_pic_obj.banner_picture_url if profile_pic_obj else None
 
     
     skills_query = db.session.query(Skills.skill).all()
@@ -62,12 +62,12 @@ def index():
     featured_playlist = media_data.get('featured_playlist', '')
     singles = Singles.query.all()
     albums = Albums.query.all() 
-    print(f"profile pic: {profile_url}")
+    print(f"profile pic: {profile_picture_url}")
 
     return render_template(
         'index.html', 
-        profile_pic=profile_url, 
-        banner_pic=banner_url, 
+        profile_picture_url=profile_picture_url, 
+        banner_picture_url=banner_picture_url, 
         name=name, 
         short_about=about, 
         skills=skills, 

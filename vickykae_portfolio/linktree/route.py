@@ -62,7 +62,9 @@ def linktree_route():
         db.session.add(config)
         db.session.commit()
 
+
     profile_pic_obj = ProfileImg.query.first()
-    banner_url = profile_pic_obj.banner_img if profile_pic_obj else None
+    profile_picture_url = profile_pic_obj.profile_picture_url if profile_pic_obj else None
+    banner_picture_url = profile_pic_obj.banner_picture_url if profile_pic_obj else None
     
-    return render_template('linktree.html', links=links, config=config, name=name, profile_pic=profile_pic.profile_picture, banner_pic=banner_url, streaming=streaming, ga_id=ga_id)
+    return render_template('linktree.html', links=links, config=config, name=name, profile_picture_url=profile_picture_url, banner_picture_url=banner_picture_url, streaming=streaming, ga_id=ga_id)

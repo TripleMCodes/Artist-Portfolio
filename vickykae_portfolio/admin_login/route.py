@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required
 from ..models import Admin, User, Skills, Blog, ProfileImg, Service, FAQ, Message, Gallery, AboutSection, MediaConfig, Event, LinktreeLink, LinktreeConfig, Singles, Albums, Expertise, HeroAbout, Testimonials, FoundationAbout, Journey, Client
 from werkzeug.utils import secure_filename
+import cloudinary.uploader
 import os
 from datetime import datetime
 import logging
@@ -15,6 +16,9 @@ import pyotp
 import json, os
 from pathlib import Path
 logging.basicConfig(level=logging.DEBUG)
+from .config import init_cloudinary
+
+init_cloudinary()
 
 admin = Blueprint(
     "admin",
@@ -322,89 +326,116 @@ def delete_skill(skill_id):
 def update_profile_picture():
     from ..app import db
 
-    user = User.query.first()
-    name = user.name
-
     if 'profile_picture' not in request.files:
         return {"message": "No file part"}, 400
+
     file = request.files['profile_picture']
+
     if file.filename == '':
         return {"message": "No selected file"}, 400
+
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        # Add UUID to make unique
-        import uuid
-        filename = f"{uuid.uuid4().hex}_{filename}"
-        upload_folder = os.path.join(
-            Path(__file__).parent.parent, 'templates', 'home', 'img',
-            'profile picture'
-        )
-        os.makedirs(upload_folder, exist_ok=True)
-        file_path = os.path.join(upload_folder, filename)
-        file.save(file_path)
-        
-        # Only fetch current artist's profile image
+
+        # Upload to Cloudinary
+        try:
+            upload_result = cloudinary.uploader.upload(
+                file,
+                folder="profile_pictures"
+            )
+        except Exception as e:
+            return {"message": f"Upload failed: {str(e)}"}, 500
+
+        image_url = upload_result.get("secure_url")
+        public_id = upload_result.get("public_id")
+
         user = ProfileImg.query.first()
+
         if user:
-            old_picture = user.profile_picture
-            user.profile_picture = filename
+            old_public_id = user.profile_picture  # store public_id now
+
+            user.profile_picture = public_id
+            user.profile_picture_url = image_url
+              # <-- ADD THIS COLUMN
+            if old_public_id:
+                try:
+                    cloudinary.uploader.destroy(old_public_id)
+                except Exception as e:
+                    print(f"Warning: Failed to delete old image: {e}")
+
             db.session.commit()
-            # Delete old file
-            if old_picture:
-                old_path = os.path.join(upload_folder, old_picture)
-                if os.path.exists(old_path):
-                    os.remove(old_path)
-            return {"message": "Profile picture updated"}, 200
+
+            return {"message": "Profile picture updated", "url": image_url}, 200
+
         else:
-            user = ProfileImg(id=1, profile_picture=filename)
+            user = ProfileImg(
+                id=1,
+                profile_picture=public_id,
+                profile_picture_url=image_url
+            )
             db.session.add(user)
             db.session.commit()
-            return {"message": "Profile picture updated"}, 200
-            # return {"message": "User not found"}, 404
-    else:
-        return {"message": "Invalid file type"}, 400
+
+            return {"message": "Profile picture updated", "url": image_url}, 200
+
+    return {"message": "Invalid file type"}, 400
 
 @admin.route('/update banner picture', methods=['POST'])
 @login_required
 def update_banner_picture():
     from ..app import db
-    user = User.query.first()
-    name = user.name
 
     if 'banner_picture' not in request.files:
         return {"message": "No file part"}, 400
+    
     file = request.files['banner_picture']
+
     if file.filename == '':
         return {"message": "No selected file"}, 400
+    
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        # Add UUID to make unique
-        import uuid
-        filename = f"{uuid.uuid4().hex}_{filename}"
-        # MULTI-TENANT SAFE: Use artist-scoped upload folder
-        upload_folder = os.path.join(
-            Path(__file__).parent.parent, 'templates', 'home', 'img',
-            'banner picture'
-        )
-        os.makedirs(upload_folder, exist_ok=True)
-        file_path = os.path.join(upload_folder, filename)
-        file.save(file_path)
-        
+        # Upload to Cloudinary
+        try:
+            upload_result = cloudinary.uploader.upload(
+                file,
+                folder="profile_pictures"
+            )
+        except Exception as e:
+            return {"message": f"Upload failed: {str(e)}"}, 500
+
+        image_url = upload_result.get("secure_url")
+        public_id = upload_result.get("public_id")
+
         user = ProfileImg.query.first()
+
         if user:
-            old_picture = user.banner_img
-            user.banner_img = filename
+            old_public_id = user.banner_img  # store public_id now
+
+            user.banner_img = public_id
+            user.banner_picture_url = image_url
+
+            if old_public_id:
+                try:
+                    cloudinary.uploader.destroy(old_public_id)
+                except Exception as e:
+                    print(f"Warning: Failed to delete old image: {e}")
+
             db.session.commit()
-            # Delete old file
-            if old_picture:
-                old_path = os.path.join(upload_folder, old_picture)
-                if os.path.exists(old_path):
-                    os.remove(old_path)
-            return {"message": "banner picture updated"}, 200
+
+            return {"message": "Banner picture updated", "url": image_url}, 200
+
         else:
-            return {"message": "User not found"}, 404
-    else:
-        return {"message": "Invalid file type"}, 400
+            user = ProfileImg(
+                id=1,
+                banner_img=public_id,
+                banner_picture_url=image_url
+            )
+            db.session.add(user)
+            db.session.commit()
+
+            return {"message": "Banner picture updated", "url": image_url}, 200
+
+    return {"message": "Invalid file type"}, 400
+        
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -730,13 +761,14 @@ def delete_event(event_id):
 @admin.route('/manage gallery')
 @login_required
 def manage_gallery():
-    from ..app import db
-    # from flask import g
-   
-    gallery_items = Gallery.query.order_by(Gallery.id).all()
-    images = [item for item in gallery_items if item.type == 'image']
-    videos = [item for item in gallery_items if item.type == 'video']
-    return render_template("manage_gallery.html", images=images, videos=videos)
+    images = Gallery.query.filter_by(type='image').order_by(Gallery.id).all()
+    videos = Gallery.query.filter_by(type='video').order_by(Gallery.id).all()
+
+    return render_template(
+        "manage_gallery.html",
+        images=images,
+        videos=videos
+    )
 
 
 @admin.route('/manage media')
@@ -1067,68 +1099,79 @@ def delete_single():
 
 #==========================================gallary============================================
 
+import cloudinary.uploader
+
 @admin.route('/upload gallery image', methods=['POST'])
 @login_required
 def upload_gallery_image():
-
     from ..app import db
-    user = User.query.first()
 
-    images_count = Gallery.query.filter_by(
-        type='image'
-    ).count()
+    images_count = Gallery.query.filter_by(type='image').count()
     if images_count >= 5:
         return {"message": "Maximum 5 images allowed. Delete an old image first."}, 400
 
     if 'image' not in request.files:
         return {"message": "No file part"}, 400
+
     file = request.files['image']
+
     if file.filename == '':
         return {"message": "No selected file"}, 400
+
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        import uuid
-        filename = f"{uuid.uuid4().hex}_{filename}"
-        upload_folder = os.path.join(
-            os.path.dirname(__file__), '..', 'templates', 'gallery', 'img'
-        )
-        os.makedirs(upload_folder, exist_ok=True)
-        file_path = os.path.join(upload_folder, filename)
-        file.save(file_path)
+
+        try:
+            upload_result = cloudinary.uploader.upload(
+                file,
+                folder="gallery_images"
+            )
+        except Exception as e:
+            return {"message": f"Upload failed: {str(e)}"}, 500
+
+        image_url = upload_result.get("secure_url")
+        public_id = upload_result.get("public_id")
 
         title = request.form.get('title', '')
-       
+
         new_item = Gallery(
             type='image',
-            url=filename,
+            url=public_id,
+            cloud_url=image_url,
             title=title
         )
+
         db.session.add(new_item)
         db.session.commit()
-        return {"message": "Image uploaded", "item": {"id": new_item.id, "url": new_item.url, "title": new_item.title}}, 201
-    else:
-        return {"message": "Invalid file type"}, 400
+
+        return {
+            "message": "Image uploaded",
+            "item": {
+                "id": new_item.id,
+                "url": new_item.cloud_url,
+                "title": new_item.title
+            }
+        }, 201
+
+    return {"message": "Invalid file type"}, 400
+
 
 @admin.route('/delete gallery item/<int:item_id>', methods=['POST'])
 @login_required
 def delete_gallery_item(item_id):
     from ..app import db
-    user = User.query.first()
-    # from flask import g
-   
-    item = Gallery.query.filter_by(
-        id=item_id
-    ).first_or_404()
+
+    item = Gallery.query.filter_by(id=item_id).first_or_404()
+
     if item.type == 'image':
-        # Delete file from artist-scoped folder
-        file_path = os.path.join(
-            os.path.dirname(__file__), '..', 'gallery', 'html css js', 'img',
-            f'artist_{user.uid}', item.url
-        )
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        if item.url:  # this is public_id now
+            try:
+                cloudinary.uploader.destroy(item.url)
+            except Exception as e:
+                print(f"Warning: Failed to delete image: {e}")
+
     db.session.delete(item)
     db.session.commit()
+
     return {"message": "Item deleted"}, 200
 
 @admin.route('/add gallery video', methods=['POST'])

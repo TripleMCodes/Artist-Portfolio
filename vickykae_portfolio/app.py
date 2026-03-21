@@ -68,10 +68,11 @@ def _configure_database(app: Flask) -> None:
     if database_url:
         app.config["SQLALCHEMY_DATABASE_URI"] = database_url
         # print("DB not present")
+        print("The database is:")
         print(database_url)
         return
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///C:/Users/nkosikhona/Aura portfolio/vickykae_portfolio/portfolio.db'
+    app.config["SQLALCHEMY_DATABASE_URI"] = f'postgresql://postgres.ymlpfgigaivivlrpewpj:02122020%402001%24nkosi@aws-1-eu-central-2.pooler.supabase.com:6543/postgres'
 
     
 
@@ -145,9 +146,9 @@ def create_app() -> Flask:
     db.init_app(app)
     Migrate(app, db)
 
-    # from .seed import seed_all 
-    # with app.app_context():
-    #     seed_all(db)
+    from .seed import seed_all 
+    with app.app_context():
+        seed_all(db)
     # Auth
     _init_auth(app)
 
