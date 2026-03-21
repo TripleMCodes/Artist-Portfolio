@@ -72,7 +72,6 @@ def _configure_database(app: Flask) -> None:
         print(database_url)
         return
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = f'postgresql://postgres.ymlpfgigaivivlrpewpj:02122020%402001%24nkosi@aws-1-eu-central-2.pooler.supabase.com:6543/postgres'
 
     
 
