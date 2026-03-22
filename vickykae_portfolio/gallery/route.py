@@ -74,6 +74,8 @@ def gallery_route():
         elif item.type == 'video':
             item.video_id = extract_youtube_id(item.url)
             videos.append(item)
+    
+    print(videos)
 
     return render_template(
         'gallery.html',

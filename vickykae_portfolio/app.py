@@ -71,10 +71,7 @@ def _configure_database(app: Flask) -> None:
         print("The database is:")
         print(database_url)
         return
-
-
-    
-
+ 
 def _init_auth(app: Flask) -> None:
     login_manager = LoginManager()
     login_manager.login_view = os.getenv("LOGIN_VIEW_ENDPOINT", "admin.admin_login")
